@@ -1,0 +1,13 @@
+name: bNavi
+main: tk.thapengwin.Navigation
+version: 1.0.0
+description: A plugin that helps navigate your players around your world.
+author: ThaPengwin
+commands:
+   navigation:
+      description: Navigation admin commands.
+      usage: /nav
+      aliases: [bnavi, bnavigation, navigation, navigate, nav, where]
+      permission: navigation
+      permission-message: You don't have permission!
+      default: true

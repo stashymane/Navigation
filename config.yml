@@ -1,0 +1,19 @@
+# bNavi Configuration File
+# Please use the commands to edit the config, because I will not answer if you encounter an error.
+
+config-version: 1
+enable-metrics: true
+
+menu-title: Navigation Points
+
+points:
+  enabled:
+  - centerOfTheWorld
+  
+  centerOfTheWorld:
+    name: Center of the World
+    desc: The center of this world!
+    world: world
+    item: NETHER_STAR
+    X: 0
+    Z: 0
