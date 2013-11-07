@@ -18,6 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Navigation extends JavaPlugin {
 	Map<String, String> newPoint = new HashMap<String, String>();
 	Map<String, Integer> newPos = new HashMap<String, Integer>();
+	Map<Player, Location> playerPos = new HashMap<Player, Location>();
 	public Map<String, String> setting = new HashMap<String, String>();
 	public String prefix = ChatColor.GREEN + "[bNavi] " + ChatColor.RESET;
 	public String cprefix = "[bNavi] ";
@@ -50,7 +51,7 @@ public class Navigation extends JavaPlugin {
 			sendMsg(p, 0, ChatColor.GREEN + "  /nav disable <id>" + ChatColor.RESET + " Disables a navigation point.");
 			sendMsg(p, 0, ChatColor.GREEN + "  /nav reload" + ChatColor.RESET + " Reloads the config.");
 			sendMsg(p, 0, ChatColor.GREEN + "  /nav version" + ChatColor.RESET + " Shows you the plugin version");
-			sendMsg(p, 0, ChatColor.GREEN + "-=" + ChatColor.GREEN + "End" + ChatColor.RESET + "=-");
+			sendMsg(p, 0, "-=" + ChatColor.GREEN + "End" + ChatColor.RESET + "=-");
 		} else if (args[0].equalsIgnoreCase("reload")){
 				reloadConfig();
 				sendMsg(p, 1, "Configuration reloaded!");
@@ -186,6 +187,10 @@ public class Navigation extends JavaPlugin {
     	configFile.delete();
     	saveDefaultConfig();
     	reloadConfig();
+    }
+    public String colorize(String msg){
+    	msg = ChatColor.translateAlternateColorCodes('&', msg);
+    	return msg;
     }
     public void sendMsg(Player p, int level, String msg){
 		if (level == 1)

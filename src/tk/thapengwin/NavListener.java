@@ -1,27 +1,34 @@
 package tk.thapengwin;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 
 public class NavListener implements Listener {
-	
+	public Set<Player> menuOpen = new HashSet<Player>();
 	private Navigation plugin;
 	public static Inventory navInventory;
 	public NavListener(Navigation plugin) {
@@ -49,9 +56,9 @@ public class NavListener implements Listener {
 		}
 	}
 	@EventHandler
-	public void onCompassRightClick(PlayerInteractEvent e) {
+	public void onRightClick(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
-		if (player.getItemInHand().getType() == Material.COMPASS) {
+		if (player.getItemInHand().getType() == Material.getMaterial(plugin.getConfig().getString("menu-item-enum"))) {
 			if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 				List<String> lore = new ArrayList<String>();
 				navInventory = Bukkit.createInventory(null, 27, plugin.getConfig().getString("menu-title"));
@@ -67,6 +74,7 @@ public class NavListener implements Listener {
     				navInventory.addItem(setName(new ItemStack(Material.getMaterial(plugin.getConfig().getString("points." + enabled + ".item"))), ChatColor.GREEN + plugin.getConfig().getString("points." + enabled + ".name"), lore));
     				lore.clear();
     				}
+				menuOpen.add(player);
 			}
 		}
 	}
@@ -100,8 +108,36 @@ public class NavListener implements Listener {
 			}
 		}
 	}
+	
+	@EventHandler
+	public void onInvClose(InventoryCloseEvent e){
+		Player p = (Player) e.getPlayer();
+		if (menuOpen.contains(p))
+			menuOpen.remove(p);
+	}
 	public void setCompassTarget(Player p, String world, int X, int Z){
 		Location location = new Location (Bukkit.getWorld(world), X, 0, Z);
 		p.setCompassTarget(location);
+		plugin.playerPos.put(p, location);
+		p.playSound(p.getLocation(), Sound.ORB_PICKUP, 100, 100);
+	}
+	public void onMove(PlayerMoveEvent e){
+		World world = e.getPlayer().getWorld();
+		Location loc = e.getPlayer().getLocation();
+		if (world.getChunkAt(loc) == world.getChunkAt(plugin.playerPos.get(e.getPlayer()))){
+			e.getPlayer().playEffect(plugin.playerPos.get(e.getPlayer()), Effect.ENDER_SIGNAL, null);
+			plugin.sendMsg(e.getPlayer(), 1, "You have arrived!");
+			resetCompass(e.getPlayer());
+		}
+		
+	}
+	public void onLeave(PlayerQuitEvent e){
+		resetCompass(e.getPlayer());
+	}
+	public void resetCompass(Player p){
+		if (plugin.playerPos.containsKey(p)){
+			p.setCompassTarget(p.getWorld().getSpawnLocation());
+			plugin.playerPos.remove(p);
+		}
 	}
 }

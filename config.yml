@@ -1,10 +1,11 @@
 # bNavi Configuration File
-# Please use the commands to edit the config, because I will not answer if you encounter an error.
 
 config-version: 1
 enable-metrics: true
+playEffects: true
 
 menu-title: Navigation Points
+menu-item-enum: COMPASS
 
 points:
   enabled:
