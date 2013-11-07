@@ -91,6 +91,7 @@ public class NavListener implements Listener {
 	
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
+		if (menuOpen.contains(e.getWhoClicked())){
 		if (e.getInventory().getSize() == 27 || e.getInventory().getTitle() == plugin.getConfig().getString("menu-title")) {
 			String itemChosen = "nope";
 			for (Object enabled : plugin.getConfig().getList("points.enabled")){
@@ -106,6 +107,7 @@ public class NavListener implements Listener {
 			if (itemChosen != "yep") {
 				e.setCancelled(true);
 			}
+		}
 		}
 	}
 	
