@@ -34,4 +34,10 @@ public class Navigator {
             compassState.remove(p);
         }
     }
+
+    public static void restoreCompassStates() {
+        for (Player p : compassState.keySet()) {
+            restoreCompassState(p);
+        }
+    }
 }

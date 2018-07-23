@@ -16,7 +16,7 @@ public class Navigation extends JavaPlugin {
     }
 
     public void onDisable() {
-
+        Navigator.restoreCompassStates();
     }
 
     public static void sendMsg(CommandSender s, String msg) {
