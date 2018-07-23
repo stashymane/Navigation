@@ -7,12 +7,18 @@ public class Waypoint {
     String name;
     String desc;
     Location loc;
+    String world;
+    int destinationRadius;
+    boolean ignoreHeight;
 
-    public Waypoint(String id, String name, String desc, Location loc) {
+    public Waypoint(String id, String name, String desc, Location loc, String world, int destinationRadius, boolean ignoreHeight) {
         this.id = id;
         this.name = name;
         this.desc = desc;
         this.loc = loc;
+        this.world = world;
+        this.destinationRadius = destinationRadius;
+        this.ignoreHeight = ignoreHeight;
     }
 
     public String getId() {
@@ -29,5 +35,17 @@ public class Waypoint {
 
     public Location getLocation() {
         return loc;
+    }
+
+    public String getWorld() {
+        return world;
+    }
+
+    public int getDestinationRadius() {
+        return destinationRadius;
+    }
+
+    public boolean isHeightIgnored() {
+        return ignoreHeight;
     }
 }
