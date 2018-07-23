@@ -27,7 +27,7 @@ public class Navigation extends JavaPlugin {
         s.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
 
-    public static void sendMsg(CommandSender s, String msg, String... vars) {
+    public static void sendMsg(CommandSender s, String msg, Object... vars) {
         msg = ChatColor.translateAlternateColorCodes('&', msg);
         msg = String.format(msg, vars);
         s.sendMessage(msg);

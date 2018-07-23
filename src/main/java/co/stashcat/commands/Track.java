@@ -23,7 +23,7 @@ public class Track implements CommandExecutor {
 
                 return true;
             } else {
-                Navigation.sendMsg(s, "Player \"%s\" is not online.", args[0]);
+                Navigation.sendMsg(s, "&aPlayer \"%s\" is not online.", args[0]);
                 return true;
             }
         }
