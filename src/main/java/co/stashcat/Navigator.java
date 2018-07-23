@@ -12,7 +12,7 @@ public class Navigator {
     public static void setDestination(Player p, Location loc) {
         saveCompassState(p);
         p.setCompassTarget(loc);
-        bNavi.sendMsg(p, "&aNavigation target set to " + loc.getBlockX() + ", " + loc.getBlockZ() + ".");
+        Navigation.sendMsg(p, "&aNavigation target set to " + loc.getBlockX() + ", " + loc.getBlockZ() + ".");
     }
 
     public static boolean hasReachedDestination(Location player, Location destination) {

@@ -2,7 +2,7 @@ package co.stashcat.listeners;
 
 import co.stashcat.Navigator;
 import co.stashcat.Tracker;
-import co.stashcat.bNavi;
+import co.stashcat.Navigation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -15,7 +15,7 @@ import java.util.Map;
 public class DestinationListener implements Listener {
     static Map<Player, Long> lastCheck = new HashMap<>();
 
-    public DestinationListener(bNavi p) {
+    public DestinationListener(Navigation p) {
         Bukkit.getPluginManager().registerEvents(this, p);
     }
 
@@ -25,7 +25,7 @@ public class DestinationListener implements Listener {
             Location loc = p.getLocation();
             lastCheck.put(p, System.currentTimeMillis());
             if (Navigator.hasReachedDestination(p.getLocation(), p.getCompassTarget())) {
-                bNavi.sendMsg(p, "&aYou have reached your destination.");
+                Navigation.sendMsg(p, "&aYou have reached your destination.");
                 Navigator.returnCompassState(p);
             }
         }

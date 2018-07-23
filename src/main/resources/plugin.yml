@@ -6,32 +6,32 @@ author: StashCat
 
 commands:
   navigate:
-    aliases: [bnavi, navi, nav]
+    aliases: [navigation, nav]
     description: Navigation command
-    permission: bnavi
+    permission: navigation
     usage: /navigate <player> OR /navigate <x> (y) <z>
   track:
-    aliases: [bnavitrack, navitrack, navtrack, trackplayer]
+    aliases: [navigationtrack, navtrack, trackplayer]
     description: Player tracking command
-    permission: bnavi.track
+    permission: navigation.track
     usage: /track <player>
 
 permissions:
-   bnavi:
+   navigation:
      description: Allows usage of the /navigate command
      default: true
-   bnavi.use:
+   navigation.use:
      description: Allows navigation via compass
      default: true
-   bnavi.coordinates:
+   navigation.coordinates:
      description: Allows navigating to specific coordinates
      default: true
-   bnavi.compass:
+   navigation.compass:
      description: Allows using a compass to start navigation
      default: true
-   bnavi.edit:
+   navigation.edit:
      description: Allows editing navigation waypoints
      default: op
-   bnavi.track:
+   navigation.track:
      description: Allows usage of the /track command, which tracks player location
      default: op
