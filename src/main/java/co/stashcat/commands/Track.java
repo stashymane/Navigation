@@ -1,6 +1,7 @@
 package co.stashcat.commands;
 
 import co.stashcat.Navigation;
+import co.stashcat.Tracker;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,15 +19,17 @@ public class Track implements CommandExecutor {
             return true;
         }
         if (args.length == 1) {
-            Player dest = Bukkit.getPlayer(args[0]);
-            if (dest != null && dest.isOnline()) {
-
+            Player p = (Player) s;
+            Player target = Bukkit.getPlayer(args[0]);
+            if (target != null && target.isOnline()) {
+                Tracker.track(p, target);
                 return true;
             } else {
                 Navigation.sendMsg(s, "&aPlayer \"%s\" is not online.", args[0]);
                 return true;
             }
         }
+        Navigation.sendMsg(s, "&cInvalid arguments.");
         return false;
     }
 }
