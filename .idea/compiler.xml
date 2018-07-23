@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="bNavi" />
+        <module name="Navigation" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bNavi" target="7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
