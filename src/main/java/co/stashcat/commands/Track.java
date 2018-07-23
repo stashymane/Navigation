@@ -17,8 +17,15 @@ public class Track implements CommandExecutor {
             Navigation.sendMsg(s, "&cThis command can only be used by players.");
             return true;
         }
-        if (args.length == 1)
-        {
+        if (args.length == 1) {
+            Player dest = Bukkit.getPlayer(args[0]);
+            if (dest != null && dest.isOnline()) {
+
+                return true;
+            } else {
+                Navigation.sendMsg(s, "Player \"%s\" is not online.", args[0]);
+                return true;
+            }
         }
         return false;
     }
