@@ -1,11 +1,15 @@
 package co.stashcat;
+
+import co.stashcat.commands.Navigate;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+
 public class bNavi extends JavaPlugin {
     public void onEnable()
     {
         saveDefaultConfig();
+        new Navigate(this);
     }
 
     public void onDisable()
