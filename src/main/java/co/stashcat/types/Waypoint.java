@@ -1,6 +1,10 @@
 package co.stashcat.types;
 
+import co.stashcat.Navigation;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 
 public class Waypoint {
     String id;
@@ -12,12 +16,47 @@ public class Waypoint {
     boolean ignoreHeight;
 
     public Waypoint(String id, String name, String desc, Location loc, String world, int destinationRadius, boolean ignoreHeight) {
-        this.id = id;
+        setId(id);
+        setName(name);
+        setDescription(desc);
+        setLocation(loc);
+        setWorld(world);
+        setDestinationRadius(destinationRadius);
+        setIgnoreHeight(ignoreHeight);
+    }
+
+    public void setId(String id) throws IllegalArgumentException {
+        if (StringUtils.isAlphanumeric(id))
+            this.id = id;
+        else
+            throw new IllegalArgumentException("IDs can only be alphanumeric.");
+    }
+
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public void setDescription(String desc) {
         this.desc = desc;
+    }
+
+    public void setLocation(Location loc) {
         this.loc = loc;
-        this.world = world;
-        this.destinationRadius = destinationRadius;
+    }
+
+    public void setWorld(World w) {
+        setWorld(w.getName());
+    }
+
+    public void setWorld(String w) {
+        this.world = w;
+    }
+
+    public void setDestinationRadius(int radius) {
+        this.destinationRadius = radius;
+    }
+
+    public void setIgnoreHeight(boolean ignoreHeight) {
         this.ignoreHeight = ignoreHeight;
     }
 
