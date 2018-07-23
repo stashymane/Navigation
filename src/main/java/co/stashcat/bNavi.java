@@ -1,6 +1,7 @@
 package co.stashcat;
 
 import co.stashcat.commands.Navigate;
+import co.stashcat.commands.Track;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -10,6 +11,7 @@ public class bNavi extends JavaPlugin {
     {
         saveDefaultConfig();
         new Navigate(this);
+        new Track(this);
     }
 
     public void onDisable()
