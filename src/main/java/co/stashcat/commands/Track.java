@@ -1,6 +1,7 @@
 package co.stashcat.commands;
 
 import co.stashcat.Navigation;
+import co.stashcat.Navigator;
 import co.stashcat.Tracker;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -23,6 +24,7 @@ public class Track implements CommandExecutor {
             Player target = Bukkit.getPlayer(args[0]);
             if (target != null && target.isOnline()) {
                 Tracker.track(p, target);
+                Navigator.setDestination(p, target.getLocation());
                 return true;
             } else {
                 Navigation.sendMsg(s, "&aPlayer \"%s\" is not online.", args[0]);
