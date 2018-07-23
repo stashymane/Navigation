@@ -26,7 +26,7 @@ public class DestinationListener implements Listener {
             lastCheck.put(p, System.currentTimeMillis());
             if (Navigator.hasReachedDestination(p.getLocation(), p.getCompassTarget())) {
                 Navigation.sendMsg(p, "&aYou have reached your destination.");
-                Navigator.returnCompassState(p);
+                Navigator.restoreCompassState(p);
             }
         }
     }

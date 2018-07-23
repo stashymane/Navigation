@@ -28,7 +28,7 @@ public class Navigator {
             compassState.put(p, p.getCompassTarget());
     }
 
-    public static void returnCompassState(Player p) {
+    public static void restoreCompassState(Player p) {
         if (compassState.containsKey(p)) {
             p.setCompassTarget(compassState.get(p));
             compassState.remove(p);
