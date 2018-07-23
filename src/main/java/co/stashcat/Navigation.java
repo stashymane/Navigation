@@ -3,6 +3,7 @@ package co.stashcat;
 import co.stashcat.commands.Navigate;
 import co.stashcat.commands.Track;
 import co.stashcat.listeners.DestinationListener;
+import co.stashcat.listeners.TrackingListener;
 import net.gravitydevelopment.updater.Updater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.ChatColor;
@@ -13,6 +14,7 @@ public class Navigation extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         new DestinationListener(this);
+        new TrackingListener(this);
         new Navigate(this);
         new Track(this);
         Metrics metrics = new Metrics(this);
