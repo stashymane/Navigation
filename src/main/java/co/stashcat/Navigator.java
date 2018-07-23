@@ -21,8 +21,24 @@ public class Navigator {
         Navigation.sendMsg(p, "&aNavigation target set to %d, %d.", loc.getBlockX(), loc.getBlockZ());
     }
 
-    public static boolean hasReachedDestination(Location player, Location destination) {
-        return player.distance(destination) < 10;
+    public static boolean hasReachedDestination(Location player, Waypoint dest) {
+        return hasReachedDestination(player, dest.getLocation(), dest.getDestinationRadius(), dest.isHeightIgnored());
+    }
+
+    public static boolean hasReachedDestination(Location player, Location dest) {
+        return hasReachedDestination(player, dest, 10);
+    }
+
+    public static boolean hasReachedDestination(Location player, Location dest, int destinationRadius) {
+        return hasReachedDestination(player, dest, destinationRadius, false);
+    }
+
+    public static boolean hasReachedDestination(Location player, Location dest, int destinationRadius, boolean ignoreHeight) {
+        if (ignoreHeight) {
+            player.setY(0);
+            dest.setY(0);
+        }
+        return player.distance(dest) < destinationRadius;
     }
 
     public static boolean isNavigating(Player p) {
