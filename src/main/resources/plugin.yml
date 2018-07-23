@@ -1,0 +1,37 @@
+name: ${name}
+version: ${version}
+main: ${groupId}.${artifactId}
+description: Navigation via compass in Minecraft
+author: StashCat
+
+commands:
+  navigate:
+    aliases: [bnavi, navi, nav]
+    description: Navigation command
+    permission: bnavi
+    usage: /navigate <player> OR /navigate <x> (y) <z>
+  track:
+    aliases: [bnavitrack, navitrack, navtrack, trackplayer]
+    description: Player tracking command
+    permission: bnavi.track
+    usage: /track <player>
+
+permissions:
+   bnavi:
+     description: Allows usage of the /navigate command
+     default: true
+   bnavi.use:
+     description: Allows navigation via compass
+     default: true
+   bnavi.coordinates:
+     description: Allows navigating to specific coordinates
+     default: true
+   bnavi.compass:
+     description: Allows using a compass to start navigation
+     default: true
+   bnavi.edit:
+     description: Allows editing navigation waypoints
+     default: op
+   bnavi.track:
+     description: Allows usage of the /track command, which tracks player location
+     default: op
