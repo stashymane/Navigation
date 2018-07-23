@@ -3,26 +3,29 @@ package co.stashcat.types;
 import co.stashcat.Navigation;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
 public class Waypoint {
+    Location loc;
+    int destinationRadius;
+    boolean ignoreHeight;
     String id;
     String name;
     String desc;
-    Location loc;
-    String world;
-    int destinationRadius;
-    boolean ignoreHeight;
     ItemStack item;
 
-    public Waypoint(String id, String name, String desc, Location loc, String world, int destinationRadius, boolean ignoreHeight, ItemStack item) {
+    public Waypoint(Location loc, int destinationRadius, boolean ignoreHeight) {
+        setLocation(loc);
+        setDestinationRadius(destinationRadius);
+        setIgnoreHeight(ignoreHeight);
+    }
+
+    public Waypoint(Location loc, int destinationRadius, boolean ignoreHeight, String id, String name, String desc, ItemStack item) {
         setId(id);
         setName(name);
         setDescription(desc);
         setLocation(loc);
-        setWorld(world);
         setDestinationRadius(destinationRadius);
         setIgnoreHeight(ignoreHeight);
         setItem(item);
@@ -34,7 +37,6 @@ public class Waypoint {
         wp.set("name", name);
         wp.set("description", desc);
         wp.set("location", loc);
-        wp.set("world", world);
         wp.set("destinationRadius", destinationRadius);
         wp.set("ignoreHeight", ignoreHeight);
         wp.set("item", item);
@@ -57,14 +59,6 @@ public class Waypoint {
 
     public void setLocation(Location loc) {
         this.loc = loc;
-    }
-
-    public void setWorld(World w) {
-        setWorld(w.getName());
-    }
-
-    public void setWorld(String w) {
-        this.world = w;
     }
 
     public void setDestinationRadius(int radius) {
@@ -93,10 +87,6 @@ public class Waypoint {
 
     public Location getLocation() {
         return loc;
-    }
-
-    public String getWorld() {
-        return world;
     }
 
     public ItemStack getItem() {
