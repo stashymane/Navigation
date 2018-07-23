@@ -1,5 +1,6 @@
 package co.stashcat;
 
+import co.stashcat.types.Waypoint;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -8,6 +9,11 @@ import java.util.Map;
 
 public class Navigator {
     static Map<Player, Location> compassState = new HashMap<>();
+
+    public static void setDestination(Player p, Waypoint w) {
+        setDestination(p, w.getLocation());
+        Navigation.sendMsg(p, "&aNavigating to %s...", w.getName());
+    }
 
     public static void setDestination(Player p, Location loc) {
         saveCompassState(p);
