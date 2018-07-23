@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.inventory.ItemStack;
 
 public class Waypoint {
     String id;
@@ -14,6 +15,7 @@ public class Waypoint {
     String world;
     int destinationRadius;
     boolean ignoreHeight;
+    ItemStack item;
 
     public Waypoint(String id, String name, String desc, Location loc, String world, int destinationRadius, boolean ignoreHeight, ItemStack item) {
         setId(id);
@@ -23,6 +25,19 @@ public class Waypoint {
         setWorld(world);
         setDestinationRadius(destinationRadius);
         setIgnoreHeight(ignoreHeight);
+        setItem(item);
+    }
+
+    public void save(Navigation p) {
+        ConfigurationSection wp = p.getConfig().getConfigurationSection("waypoints." + id);
+        wp.set("id", id);
+        wp.set("name", name);
+        wp.set("description", desc);
+        wp.set("location", loc);
+        wp.set("world", world);
+        wp.set("destinationRadius", destinationRadius);
+        wp.set("ignoreHeight", ignoreHeight);
+        wp.set("item", item);
     }
 
     public void setId(String id) throws IllegalArgumentException {
