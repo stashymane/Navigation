@@ -15,7 +15,7 @@ public class Waypoint {
     int destinationRadius;
     boolean ignoreHeight;
 
-    public Waypoint(String id, String name, String desc, Location loc, String world, int destinationRadius, boolean ignoreHeight) {
+    public Waypoint(String id, String name, String desc, Location loc, String world, int destinationRadius, boolean ignoreHeight, ItemStack item) {
         setId(id);
         setName(name);
         setDescription(desc);
@@ -60,6 +60,10 @@ public class Waypoint {
         this.ignoreHeight = ignoreHeight;
     }
 
+    public void setItem(ItemStack item) {
+        this.item = item;
+    }
+
     public String getId() {
         return id;
     }
@@ -78,6 +82,10 @@ public class Waypoint {
 
     public String getWorld() {
         return world;
+    }
+
+    public ItemStack getItem() {
+        return item.clone();
     }
 
     public int getDestinationRadius() {
