@@ -17,7 +17,7 @@ public class Main extends JavaPlugin {
         new TrackingListener(this);
         new NavigateCommand(this);
         new TrackCommand(this);
-        WaypointManager.loadWaypoints(getConfig());
+        WaypointManager.loadWaypoints(new WaypointConfiguration(this).getWaypointConfig());
         Metrics metrics = new Metrics(this);
         Updater updater = new Updater(this, 56256, this.getFile(), Updater.UpdateType.DEFAULT, true);
     }
