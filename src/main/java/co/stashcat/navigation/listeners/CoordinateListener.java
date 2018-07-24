@@ -32,7 +32,7 @@ public class CoordinateListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void chatListener(AsyncPlayerChatEvent e) {
         Set<Player> recipients = new HashSet<>();
         for (Player p : e.getRecipients()) {
