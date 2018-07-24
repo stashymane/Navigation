@@ -18,10 +18,7 @@ commands:
 
 permissions:
    navigation:
-     description: Allows usage of the /navigate command
-     default: true
-   navigation.use:
-     description: Allows navigation via compass
+     description: Allows usage of the /navigate command and navigating via compass
      default: true
    navigation.coordinates:
      description: Allows navigating to specific coordinates
