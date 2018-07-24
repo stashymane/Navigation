@@ -37,3 +37,6 @@ permissions:
    navigation.track:
      description: Allows usage of the /track command, which tracks player location
      default: op
+   navigation.chatcoords:
+     description: Allows player to start navigation by clicking on coordinates in chat
+     default: true
