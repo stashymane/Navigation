@@ -1,6 +1,6 @@
 name: ${name}
 version: ${version}
-main: ${groupId}.${artifactId}.Main
+main: ${groupId}.Main
 description: Main via compass in Minecraft
 author: StashCat
 

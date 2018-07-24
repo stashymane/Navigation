@@ -1,8 +1,8 @@
-package co.stashcat.listeners;
+package co.stashcat.navigation.listeners;
 
-import co.stashcat.Main;
-import co.stashcat.Navigator;
-import co.stashcat.Tracker;
+import co.stashcat.navigation.Main;
+import co.stashcat.navigation.Navigator;
+import co.stashcat.navigation.Tracker;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

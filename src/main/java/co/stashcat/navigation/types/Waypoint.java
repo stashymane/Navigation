@@ -1,7 +1,7 @@
-package co.stashcat.types;
+package co.stashcat.navigation.types;
 
-import co.stashcat.Main;
-import co.stashcat.events.WaypointChangeEvent;
+import co.stashcat.navigation.Main;
+import co.stashcat.navigation.events.WaypointChangeEvent;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

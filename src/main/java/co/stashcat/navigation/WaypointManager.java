@@ -1,6 +1,6 @@
-package co.stashcat;
+package co.stashcat.navigation;
 
-import co.stashcat.types.Waypoint;
+import co.stashcat.navigation.types.Waypoint;
 import org.bukkit.Location;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;

@@ -1,6 +1,6 @@
-package co.stashcat.events;
+package co.stashcat.navigation.events;
 
-import co.stashcat.types.Waypoint;
+import co.stashcat.navigation.types.Waypoint;
 import org.bukkit.Location;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

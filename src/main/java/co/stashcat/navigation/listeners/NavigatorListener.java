@@ -1,10 +1,10 @@
-package co.stashcat.listeners;
+package co.stashcat.navigation.listeners;
 
-import co.stashcat.Main;
-import co.stashcat.Navigator;
-import co.stashcat.Tracker;
-import co.stashcat.events.WaypointChangeEvent;
-import co.stashcat.types.Waypoint;
+import co.stashcat.navigation.Main;
+import co.stashcat.navigation.Navigator;
+import co.stashcat.navigation.Tracker;
+import co.stashcat.navigation.events.WaypointChangeEvent;
+import co.stashcat.navigation.types.Waypoint;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

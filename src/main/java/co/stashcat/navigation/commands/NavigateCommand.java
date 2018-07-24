@@ -1,9 +1,9 @@
-package co.stashcat.commands;
+package co.stashcat.navigation.commands;
 
-import co.stashcat.Main;
-import co.stashcat.Navigator;
-import co.stashcat.WaypointManager;
-import co.stashcat.types.Waypoint;
+import co.stashcat.navigation.Main;
+import co.stashcat.navigation.Navigator;
+import co.stashcat.navigation.WaypointManager;
+import co.stashcat.navigation.types.Waypoint;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

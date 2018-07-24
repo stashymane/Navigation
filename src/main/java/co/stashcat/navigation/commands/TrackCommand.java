@@ -1,7 +1,7 @@
-package co.stashcat.commands;
+package co.stashcat.navigation.commands;
 
-import co.stashcat.Main;
-import co.stashcat.Tracker;
+import co.stashcat.navigation.Main;
+import co.stashcat.navigation.Tracker;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

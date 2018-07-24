@@ -1,9 +1,9 @@
-package co.stashcat;
+package co.stashcat.navigation;
 
-import co.stashcat.commands.NavigateCommand;
-import co.stashcat.commands.TrackCommand;
-import co.stashcat.listeners.NavigatorListener;
-import co.stashcat.listeners.TrackingListener;
+import co.stashcat.navigation.commands.NavigateCommand;
+import co.stashcat.navigation.commands.TrackCommand;
+import co.stashcat.navigation.listeners.NavigatorListener;
+import co.stashcat.navigation.listeners.TrackingListener;
 import net.gravitydevelopment.updater.Updater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.ChatColor;

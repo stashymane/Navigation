@@ -1,6 +1,6 @@
-package co.stashcat;
+package co.stashcat.navigation;
 
-import co.stashcat.types.Waypoint;
+import co.stashcat.navigation.types.Waypoint;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
