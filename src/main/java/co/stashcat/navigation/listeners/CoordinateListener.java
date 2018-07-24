@@ -7,13 +7,16 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,6 +34,13 @@ public class CoordinateListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void chatListener(AsyncPlayerChatEvent e) {
+        Set<Player> recipients = new HashSet<>();
+        for (Player p : e.getRecipients()) {
+            if (p.hasPermission("navigation.chatcoords"))
+                recipients.add(p);
+        }
+        if (recipients.isEmpty())
+            return;
         String msg = e.getMessage();
         Matcher m = xyzRegex.matcher(msg);
         List<TextComponent> navigateTo = new ArrayList<>();
@@ -58,6 +68,7 @@ public class CoordinateListener implements Listener {
             addSemicolon = true;
         }
         s.addExtra(new TextComponent("."));
-        e.getPlayer().spigot().sendMessage(s);
+        for (Player p : recipients)
+            p.spigot().sendMessage(s);
     }
 }
