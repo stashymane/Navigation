@@ -15,6 +15,7 @@ public class WaypointManager {
 
     public static void loadWaypoints(Configuration c, boolean clear) {
         if (clear) waypoints.clear();
+        if (!c.contains("waypoints")) return;
         List<String> keys = c.getStringList("waypoints");
         for (String k : keys) {
             ConfigurationSection cs = c.getConfigurationSection("waypoints." + k);
