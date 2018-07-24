@@ -2,6 +2,7 @@ package co.stashcat.navigation;
 
 import co.stashcat.navigation.commands.NavigateCommand;
 import co.stashcat.navigation.commands.TrackCommand;
+import co.stashcat.navigation.listeners.CoordinateListener;
 import co.stashcat.navigation.listeners.NavigatorListener;
 import co.stashcat.navigation.listeners.TrackingListener;
 import net.gravitydevelopment.updater.Updater;
@@ -15,6 +16,7 @@ public class Main extends JavaPlugin {
         saveDefaultConfig();
         new NavigatorListener(this);
         new TrackingListener(this);
+        new CoordinateListener(this);
         new NavigateCommand(this);
         new TrackCommand(this);
         WaypointManager.loadWaypoints(new WaypointConfiguration(this).getWaypointConfig());
