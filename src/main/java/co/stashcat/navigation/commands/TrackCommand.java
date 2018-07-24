@@ -23,6 +23,7 @@ public class TrackCommand implements CommandExecutor {
             Player target = Bukkit.getPlayer(args[0]);
             if (target != null && target.isOnline()) {
                 Tracker.track(p, target);
+                Main.sendMsg(p, "&aNow tracking %s.", target.getDisplayName());
                 Main.sendMsg(p, "Type \"&a/track&r\" to stop tracking.");
                 return true;
             } else {
