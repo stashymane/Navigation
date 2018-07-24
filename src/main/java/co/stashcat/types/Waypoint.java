@@ -1,6 +1,6 @@
 package co.stashcat.types;
 
-import co.stashcat.Navigation;
+import co.stashcat.Main;
 import co.stashcat.events.WaypointChangeEvent;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -33,7 +33,7 @@ public class Waypoint {
         setItem(item);
     }
 
-    public boolean save(Navigation p) {
+    public boolean save(Main p) {
         if (id == null || name == null)
             return false;
         ConfigurationSection wp = p.getConfig().getConfigurationSection("waypoints." + id);

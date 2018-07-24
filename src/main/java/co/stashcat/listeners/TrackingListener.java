@@ -1,6 +1,6 @@
 package co.stashcat.listeners;
 
-import co.stashcat.Navigation;
+import co.stashcat.Main;
 import co.stashcat.Navigator;
 import co.stashcat.Tracker;
 import org.bukkit.Bukkit;
@@ -15,9 +15,9 @@ import java.util.Map;
 
 public class TrackingListener implements Listener {
     Map<Player, Long> lastCheck = new HashMap<>();
-    Navigation pl;
+    Main pl;
 
-    public TrackingListener(Navigation p) {
+    public TrackingListener(Main p) {
         Bukkit.getPluginManager().registerEvents(this, p);
         pl = p;
     }
@@ -35,7 +35,7 @@ public class TrackingListener implements Listener {
     public void disconnectListener(PlayerQuitEvent e) {
         if (e.getPlayer() != null && Tracker.isBeingTracked(e.getPlayer())) {
             Player p = Tracker.getTracker(e.getPlayer());
-            Navigation.sendMsg(p, "&cTracking target \"&a%s&c\" has disconnected, stopping tracking.", e.getPlayer().getDisplayName());
+            Main.sendMsg(p, "&cTracking target \"&a%s&c\" has disconnected, stopping tracking.", e.getPlayer().getDisplayName());
             Tracker.stopTracking(p);
         }
     }

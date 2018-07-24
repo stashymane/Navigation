@@ -1,13 +1,13 @@
 name: ${name}
 version: ${version}
-main: ${groupId}.${artifactId}
-description: Navigation via compass in Minecraft
+main: ${groupId}.${artifactId}.Main
+description: Main via compass in Minecraft
 author: StashCat
 
 commands:
   navigate:
     aliases: [navigation, nav]
-    description: Navigation command
+    description: Main command
     permission: navigation
     usage: /navigate <player> OR /navigate <x> (y) <z>
   track:

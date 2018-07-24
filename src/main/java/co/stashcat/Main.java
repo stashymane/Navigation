@@ -1,7 +1,7 @@
 package co.stashcat;
 
-import co.stashcat.commands.Navigate;
-import co.stashcat.commands.Track;
+import co.stashcat.commands.NavigateCommand;
+import co.stashcat.commands.TrackCommand;
 import co.stashcat.listeners.NavigatorListener;
 import co.stashcat.listeners.TrackingListener;
 import net.gravitydevelopment.updater.Updater;
@@ -10,13 +10,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Navigation extends JavaPlugin {
+public class Main extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         new NavigatorListener(this);
         new TrackingListener(this);
-        new Navigate(this);
-        new Track(this);
+        new NavigateCommand(this);
+        new TrackCommand(this);
         WaypointManager.loadWaypoints(getConfig());
         Metrics metrics = new Metrics(this);
         Updater updater = new Updater(this, 56256, this.getFile(), Updater.UpdateType.DEFAULT, true);

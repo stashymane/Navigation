@@ -1,6 +1,6 @@
 package co.stashcat.listeners;
 
-import co.stashcat.Navigation;
+import co.stashcat.Main;
 import co.stashcat.Navigator;
 import co.stashcat.Tracker;
 import co.stashcat.events.WaypointChangeEvent;
@@ -18,9 +18,9 @@ import java.util.Map;
 
 public class NavigatorListener implements Listener {
     static Map<Player, Long> lastCheck = new HashMap<>();
-    Navigation pl;
+    Main pl;
 
-    public NavigatorListener(Navigation p) {
+    public NavigatorListener(Main p) {
         Bukkit.getPluginManager().registerEvents(this, p);
         pl = p;
     }
@@ -33,7 +33,7 @@ public class NavigatorListener implements Listener {
             Waypoint w = Navigator.getDestination(p);
             lastCheck.put(p, System.currentTimeMillis());
             if (Navigator.hasReachedDestination(p.getLocation(), w)) {
-                Navigation.sendMsg(p, "&aYou have reached your destination.");
+                Main.sendMsg(p, "&aYou have reached your destination.");
                 Navigator.stopNavigation(p);
             }
         }
