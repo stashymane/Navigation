@@ -33,7 +33,9 @@ public class Waypoint {
         setItem(item);
     }
 
-    public void save(Navigation p) {
+    public boolean save(Navigation p) {
+        if (id == null || name == null)
+            return false;
         ConfigurationSection wp = p.getConfig().getConfigurationSection("waypoints." + id);
         wp.set("id", id);
         wp.set("name", name);
@@ -42,6 +44,7 @@ public class Waypoint {
         wp.set("destinationRadius", destinationRadius);
         wp.set("ignoreHeight", ignoreHeight);
         wp.set("item", item);
+        return true;
     }
 
     public void setId(String id) throws IllegalArgumentException {
