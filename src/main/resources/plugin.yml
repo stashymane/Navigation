@@ -15,6 +15,11 @@ commands:
     description: Player tracking command
     permission: navigation.track
     usage: /track <player>
+  waypoint:
+    aliases: [navigationwaypoint, navwaypoint]
+    description: Waypoint editing command
+    permission: navigation.edit
+    usage: /waypoint
 
 permissions:
    navigation:
