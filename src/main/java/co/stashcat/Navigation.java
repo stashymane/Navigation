@@ -17,6 +17,7 @@ public class Navigation extends JavaPlugin {
         new TrackingListener(this);
         new Navigate(this);
         new Track(this);
+        WaypointManager.loadWaypoints(getConfig());
         Metrics metrics = new Metrics(this);
         Updater updater = new Updater(this, 56256, this.getFile(), Updater.UpdateType.DEFAULT, true);
     }
