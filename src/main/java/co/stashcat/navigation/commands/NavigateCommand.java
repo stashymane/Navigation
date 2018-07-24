@@ -49,7 +49,7 @@ public class NavigateCommand implements CommandExecutor {
                 Main.sendMsg(p, "&cCoordinates contain a non-numeric character.");
                 return true;
             }
-            Waypoint w = new Waypoint(new Location(p.getWorld(), x, y, z), 5, args.length == 3);
+            Waypoint w = new Waypoint(new Location(p.getWorld(), x, y, z), 5, args.length != 3);
             Navigator.navigate(p, w);
             Main.sendMsg(p, "&aNavigating to %d, %d, %d...", x, y, z);
             return true;
