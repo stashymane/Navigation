@@ -14,6 +14,7 @@ public class WaypointConfiguration {
 
     public WaypointConfiguration(Main pl) {
         this.pl = pl;
+        createWaypointConfig();
     }
 
     public FileConfiguration getWaypointConfig() {
@@ -24,7 +25,11 @@ public class WaypointConfiguration {
         customConfigFile = new File(pl.getDataFolder(), "waypoints.yml");
         if (!customConfigFile.exists()) {
             customConfigFile.getParentFile().mkdirs();
-            pl.saveResource("waypoints.yml", false);
+            try {
+                customConfigFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         customConfig = new YamlConfiguration();
