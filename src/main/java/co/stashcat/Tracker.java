@@ -1,5 +1,6 @@
 package co.stashcat;
 
+import co.stashcat.types.Waypoint;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -10,14 +11,12 @@ public class Tracker {
 
     public static void track(Player p, Player target) {
         tracking.put(p, target);
-        Navigation.sendMsg(p, "&aTracking %s...", target.getDisplayName());
-        Navigation.sendMsg(p, "Type \"&a/track&r\" to stop tracking.");
+        Navigator.navigate(p, new Waypoint(target.getLocation(), 0, false));
     }
 
     public static void stopTracking(Player p) {
-        Navigation.sendMsg(p, "&aStopped tracking &2%s&a.", tracking.get(p));
         tracking.remove(p);
-        Navigator.restoreCompassState(p);
+        Navigator.stopNavigation(p);
     }
 
     public static boolean isTracking(Player p) {

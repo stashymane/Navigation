@@ -1,7 +1,9 @@
 package co.stashcat.types;
 
 import co.stashcat.Navigation;
+import co.stashcat.events.WaypointChangeEvent;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
@@ -58,6 +60,7 @@ public class Waypoint {
     }
 
     public void setLocation(Location loc) {
+        Bukkit.getPluginManager().callEvent(new WaypointChangeEvent(this, this.loc, loc));
         this.loc = loc;
     }
 

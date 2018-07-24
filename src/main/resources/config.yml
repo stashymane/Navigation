@@ -1,3 +1,2 @@
 #checkInterval: how often to update tracking position and check for destination arrival in seconds
 checkInterval: 1;
-

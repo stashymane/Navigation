@@ -11,16 +11,20 @@ public class Navigator {
     static Map<Player, Location> compassState = new HashMap<>();
     static Map<Player, Waypoint> destinations = new HashMap<>();
 
-    public static void setDestination(Player p, Waypoint w) {
-        setDestination(p, w.getLocation());
-        Navigation.sendMsg(p, "&aNavigating to %s...", w.getName());
+    public static void navigate(Player p, Waypoint w) {
+        saveCompassState(p);
+        destinations.put(p, w);
+        p.setCompassTarget(w.getLocation());
     }
 
-    public static void setDestination(Player p, Waypoint loc) {
-        saveCompassState(p);
-        destinations.put(p, loc);
-        p.setCompassTarget(loc);
-        Navigation.sendMsg(p, "&aNavigation target set to %d, %d.", loc.getBlockX(), loc.getBlockZ());
+    public static void stopNavigation(Player p) {
+        destinations.remove(p);
+        restoreCompassState(p);
+    }
+
+    public static void updateCompassTarget(Player p) {
+        if (destinations.containsKey(p))
+            p.setCompassTarget(destinations.get(p).getLocation());
     }
 
     public static boolean hasReachedDestination(Location player, Waypoint dest) {
@@ -33,7 +37,18 @@ public class Navigator {
     }
 
     public static boolean isNavigating(Player p) {
-        return compassState.containsKey(p);
+        return destinations.containsKey(p);
+    }
+
+    public static Player getNavigator(Waypoint target) {
+        if (destinations.containsValue(target)) {
+            for (Player key : destinations.keySet()) {
+                if (destinations.get(key) == target) {
+                    return key;
+                }
+            }
+        }
+        return null;
     }
 
     public static void saveCompassState(Player p) {
@@ -52,5 +67,9 @@ public class Navigator {
         for (Player p : compassState.keySet()) {
             restoreCompassState(p);
         }
+    }
+
+    public static Waypoint getDestination(Player p) {
+        return destinations.get(p);
     }
 }

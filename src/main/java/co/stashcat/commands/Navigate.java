@@ -20,7 +20,7 @@ public class Navigate implements CommandExecutor {
             Navigation.sendMsg(s, "&cCommand under construction.");
             return true;
         } else if (args.length == 2 || args.length == 3) {
-
+            //Navigation.sendMsg(p, "&aNavigating to %s...", w.getName());
         }
         return false;
     }
