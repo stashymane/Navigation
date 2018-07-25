@@ -12,6 +12,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,14 +23,41 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CoordinateListener implements Listener {
+    Main pl;
     Pattern xyzRegex = Pattern.compile("(\\d+)([ ]|[,;][ ]?)(\\d+)\\2(\\d+)");
+    Set<String> listeningCommands = new HashSet<>();
 
     public CoordinateListener(Main pl) {
+        this.pl = pl;
         try {
             Class.forName("org.spigotmc.SpigotConfig");
             Bukkit.getPluginManager().registerEvents(this, pl);
+            loadListeningCommands();
         } catch (ClassNotFoundException e) {
             Bukkit.getLogger().warning("Server implementation is not Spigot - chat coordinates are disabled.");
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void commandListener(PlayerCommandPreprocessEvent e) { //TODO: doesnt work, check where it stops
+        String s = e.getMessage().replace("/", "");
+        if (s.split(" ").length >= 3) {
+            String cmd = s.substring(0, s.indexOf(" "));
+            Bukkit.getLogger().info("command: " + cmd);
+            Bukkit.getLogger().info("listeningCommands: ");
+            for (String a : listeningCommands)
+                Bukkit.getLogger().info(a);
+            if (listeningCommands.contains(cmd)) {
+                String recipient = s.split(" ")[1];
+                String text = s.replace(cmd, "").replaceFirst(" ", "").replace(recipient, "");
+                Bukkit.getLogger().info("recipient: " + recipient);
+                Bukkit.getLogger().info("text: " + text);
+                Matcher m = xyzRegex.matcher(text);
+                Player rp = Bukkit.getPlayer(recipient);
+                if (rp.isOnline()) {
+                    rp.spigot().sendMessage(getCoordText(matchCoords(m)));
+                }
+            }
         }
     }
 
@@ -85,23 +114,6 @@ public class CoordinateListener implements Listener {
     }
 
     public void loadListeningCommands() {
-        List<String> coordsCommands = pl.getConfig().getStringList("coordsCommands");
-        for (String cmd : coordsCommands) {
-            Map<String, String[]> aliases = Bukkit.getCommandAliases();
-            if (aliases.containsKey(cmd)) {
-                listeningCommands.add(cmd);
-                listeningCommands.addAll(Arrays.asList(aliases.get(cmd)));
-            } else {
-                for (int i = 0; i < aliases.size(); i++) {
-                    String key = (String) aliases.keySet().toArray()[i];
-                    for (String alias : aliases.get(key))
-                        if (alias.equalsIgnoreCase(cmd)) {
-                            listeningCommands.add(cmd);
-                            listeningCommands.addAll(Arrays.asList(aliases.get(key)));
-                            break;
-                        }
-                }
-            }
-        }
+        listeningCommands.addAll(pl.getConfig().getStringList("coordsCommands"));
     }
 }
