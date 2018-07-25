@@ -158,6 +158,7 @@ public class WaypointCommand implements CommandExecutor {
         sendVarInfo(s, "id", "<id>", "Alphanumeric waypoint ID to be used in commands");
         sendVarInfo(s, "name", "<name>", "Waypoint name");
         sendVarInfo(s, "desc", "<description>", "Waypoint description");
+        sendVarInfo(s, "item", "Sets waypoint item to your currently held item");
         sendVarInfo(s, "location", "Sets waypoint location to your current");
         sendVarInfo(s, "location", "<x> <y> <z> [world]", "Sets waypoint location to the specified coordinates");
         sendVarInfo(s, "radius", "<radius>", "Waypoint arrival radius");
