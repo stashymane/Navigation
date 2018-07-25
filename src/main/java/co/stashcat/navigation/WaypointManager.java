@@ -6,6 +6,7 @@ import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,14 @@ public class WaypointManager {
 
     public static Waypoint getWaypoint(String s) {
         return waypoints.get(s);
+    }
+
+    public static Map<String, Waypoint> getWaypoints() {
+        return waypoints;
+    }
+
+    public static Collection<Waypoint> getWaypointList() {
+        return waypoints.values();
     }
 
     public static Configuration getCurrentConfig() {
