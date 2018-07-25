@@ -29,13 +29,11 @@ public class CoordinateListener implements Listener {
 
     public CoordinateListener(Main pl) {
         this.pl = pl;
-        try {
-            Class.forName("org.spigotmc.SpigotConfig");
+        if (Main.isSpigot()) {
             Bukkit.getPluginManager().registerEvents(this, pl);
             loadListeningCommands();
-        } catch (ClassNotFoundException e) {
+        } else
             Bukkit.getLogger().warning("Server implementation is not Spigot - chat coordinates are disabled.");
-        }
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

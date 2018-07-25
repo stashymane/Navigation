@@ -12,8 +12,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
     public static WaypointConfiguration waypointConfig;
+    private static boolean isSpigot;
 
     public void onEnable() {
+        try {
+            Class.forName("org.spigotmc.SpigotConfig");
+            isSpigot = true;
+        } catch (ClassNotFoundException e) {
+            isSpigot = false;
+        }
         saveDefaultConfig();
         updateDefaults();
         waypointConfig = new WaypointConfiguration(this);
@@ -35,6 +42,10 @@ public class Main extends JavaPlugin {
 
     public void onDisable() {
         Navigator.restoreCompassStates();
+    }
+
+    public static boolean isSpigot() {
+        return isSpigot;
     }
 
     public static void sendMsg(CommandSender s, String msg) {
