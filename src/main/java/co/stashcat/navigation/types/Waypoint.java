@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
 public class Waypoint {
@@ -49,9 +48,20 @@ public class Waypoint {
         return true;
     }
 
-    private void save(ConfigurationSection s, String id, String var, Object val) {
+    private void save(Configuration s, String id, String var, Object val) {
         s.set("waypoints." + id + "." + var, val);
     }
+
+    public boolean delete() {
+        Configuration c = Main.waypointConfig.getWaypointConfig();
+        if (id == null)
+            return false;
+        c.set("waypoints." + id, null);
+        Main.waypointConfig.saveWaypointConfig();
+        Main.reload();
+        return true;
+    }
+
 
     public void setId(String id) throws IllegalArgumentException {
         if (StringUtils.isAlphanumeric(id))
