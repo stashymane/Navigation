@@ -17,18 +17,18 @@ public class WaypointManager {
     public static void loadWaypoints(Configuration c, boolean clear) {
         currentConfig = c;
         if (clear) waypoints.clear();
-        if (!c.contains("waypoints")) return;
+        if (c.get("waypoints") == null)
+            return;
         List<String> keys = c.getStringList("waypoints");
         for (String k : keys) {
             ConfigurationSection cs = c.getConfigurationSection("waypoints." + k);
             Location loc = (Location) cs.get("location");
             int destinationRadius = cs.getInt("destinationRadius");
             boolean ignoreHeight = cs.getBoolean("ignoreHeight");
-            String id = cs.getString("id");
             String name = cs.getString("name");
             String desc = cs.getString("description");
             ItemStack item = (ItemStack) cs.get("item");
-            waypoints.put(id, new Waypoint(loc, destinationRadius, ignoreHeight, id, name, desc, item));
+            waypoints.put(k, new Waypoint(loc, destinationRadius, ignoreHeight, k, name, desc, item));
         }
     }
 

@@ -1,7 +1,6 @@
 package co.stashcat.navigation;
 
-import co.stashcat.navigation.commands.NavigateCommand;
-import co.stashcat.navigation.commands.TrackCommand;
+import co.stashcat.navigation.commands.*;
 import co.stashcat.navigation.listeners.CoordinateListener;
 import co.stashcat.navigation.listeners.NavigatorListener;
 import co.stashcat.navigation.listeners.TrackingListener;
@@ -12,6 +11,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
+    public static WaypointConfiguration waypointConfig;
+
     public void onEnable() {
         saveDefaultConfig();
         updateDefaults();
@@ -20,9 +21,14 @@ public class Main extends JavaPlugin {
         new CoordinateListener(this);
         new NavigateCommand(this);
         new TrackCommand(this);
-        WaypointManager.loadWaypoints(new WaypointConfiguration(this).getWaypointConfig());
+        new NavigationManagementCommand(this);
+        WaypointManager.loadWaypoints(waypointConfig.getWaypointConfig());
         Metrics metrics = new Metrics(this);
         Updater updater = new Updater(this, 56256, this.getFile(), Updater.UpdateType.DEFAULT, true);
+    }
+
+    public static void reload() {
+        WaypointManager.loadWaypoints(waypointConfig.getWaypointConfig());
     }
 
     public void onDisable() {
