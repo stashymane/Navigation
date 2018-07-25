@@ -15,8 +15,8 @@ public class NavigationManagementCommand implements CommandExecutor {
 
     public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
         if (args.length == 0) {
-            Main.sendMsg(s, "  &a%s version %s", pl.getDescription().getName(), pl.getDescription().getVersion());
-            Main.sendMsg(s, "&a%s reload&r - reloads the plugin", label);
+            Main.sendMsg(s, "  &a%s&r version %s", pl.getDescription().getName(), pl.getDescription().getVersion());
+            Main.sendMsg(s, "/%s &areload&r - reloads the plugin", label);
             return true;
         } else if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             Main.reload();
