@@ -67,8 +67,9 @@ public class CoordinateListener implements Listener {
         String msg = e.getMessage();
         Matcher m = xyzRegex.matcher(msg);
         List<Vector> navigateTo = matchCoords(m);
-        for (Player p : recipients)
-            p.spigot().sendMessage(getCoordText(navigateTo));
+        if (!navigateTo.isEmpty())
+            for (Player p : recipients)
+                p.spigot().sendMessage(getCoordText(navigateTo));
     }
 
     public List<Vector> matchCoords(Matcher m) {
