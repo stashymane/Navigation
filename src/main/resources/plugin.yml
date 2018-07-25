@@ -40,3 +40,6 @@ permissions:
    navigation.chatcoords:
      description: Allows player to start navigation by clicking on coordinates in chat
      default: true
+   navigation.receivecompass:
+     description: Allows the player to receive a compass if they do not have one when navigating.
+     default: false
