@@ -30,7 +30,7 @@ public class TrackCommand implements CommandExecutor {
                 Main.sendMsg(s, "&aPlayer \"%s\" is not online.", args[0]);
                 return true;
             }
-        } else if (args.length == 0) {
+        } else if (args.length == 0 && Tracker.isTracking(p)) {
             Main.sendMsg(p, "&aStopped tracking &2%s&a.", Tracker.getTracking(p));
             Tracker.stopTracking(p);
         }
