@@ -29,7 +29,7 @@ public class NavigateCommand implements CommandExecutor {
             if (w != null) {
                 Navigator.navigate(p, w);
                 Main.sendMsg(p, "&aNavigating to %s...", w.getName());
-                Main.sendMsg(p, "Type /navigate to stop.");
+                Main.sendMsg(p, "Type /%s to stop.", label);
             } else {
                 Main.sendMsg(p, "&cWaypoint %s does not exist.", args[0]);
             }
@@ -53,7 +53,7 @@ public class NavigateCommand implements CommandExecutor {
             Waypoint w = new Waypoint(new Location(p.getWorld(), x, y, z), 5, args.length != 3);
             Navigator.navigate(p, w);
             Main.sendMsg(p, "&aNavigating to %d, %d, %d...", x, y, z);
-            Main.sendMsg(p, "Type /navigate to stop.");
+            Main.sendMsg(p, "Type /%s to stop.", label);
             return true;
         } else if (args.length == 0 && Navigator.isNavigating(p)) {
             Navigator.stopNavigation(p);

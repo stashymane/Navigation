@@ -24,7 +24,7 @@ public class TrackCommand implements CommandExecutor {
             if (target != null && target.isOnline()) {
                 Tracker.track(p, target);
                 Main.sendMsg(p, "&aNow tracking %s.", target.getDisplayName());
-                Main.sendMsg(p, "Type \"&a/track&r\" to stop tracking.");
+                Main.sendMsg(p, "Type \"&a/%s&r\" to stop tracking.", label);
                 return true;
             } else {
                 Main.sendMsg(s, "&aPlayer \"%s\" is not online.", args[0]);
