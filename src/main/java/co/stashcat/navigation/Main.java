@@ -14,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
+        updateDefaults();
         new NavigatorListener(this);
         new TrackingListener(this);
         new CoordinateListener(this);
@@ -36,5 +37,10 @@ public class Main extends JavaPlugin {
         msg = ChatColor.translateAlternateColorCodes('&', msg);
         msg = String.format(msg, vars);
         s.sendMessage(msg);
+    }
+
+    public void updateDefaults() {
+        getConfig().addDefault("checkInterval", "1");
+        getConfig().addDefault("coordsCommands", new String[]{"tell, w, msg, r"});
     }
 }
