@@ -85,7 +85,7 @@ public class WaypointCommand implements CommandExecutor {
                     return true;
                 }
                 Player p = (Player) s;
-                ItemStack held = p.getItemOnCursor();
+                ItemStack held = p.getInventory().getItemInMainHand();
                 editing.get(s).setItem(held);
                 value = held.getType().toString();
             } else if (variable.equalsIgnoreCase("location")) {
