@@ -21,6 +21,14 @@ public class WaypointConfiguration {
         return this.customConfig;
     }
 
+    public void saveWaypointConfig() {
+        try {
+            customConfig.save(customConfigFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void createWaypointConfig() {
         customConfigFile = new File(pl.getDataFolder(), "waypoints.yml");
         if (!customConfigFile.exists()) {
