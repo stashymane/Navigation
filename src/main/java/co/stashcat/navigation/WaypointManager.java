@@ -12,8 +12,10 @@ import java.util.Map;
 
 public class WaypointManager {
     public static Map<String, Waypoint> waypoints = new HashMap<>();
+    static Configuration currentConfig;
 
     public static void loadWaypoints(Configuration c, boolean clear) {
+        currentConfig = c;
         if (clear) waypoints.clear();
         if (!c.contains("waypoints")) return;
         List<String> keys = c.getStringList("waypoints");
@@ -36,5 +38,9 @@ public class WaypointManager {
 
     public static Waypoint getWaypoint(String s) {
         return waypoints.get(s);
+    }
+
+    public static Configuration getCurrentConfig() {
+        return currentConfig;
     }
 }
