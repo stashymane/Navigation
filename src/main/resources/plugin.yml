@@ -13,7 +13,7 @@ commands:
     aliases: [nav]
     description: Main command
     permission: navigation
-    usage: /navigate <player> OR /navigate <x> (y) <z>
+    usage: /navigate <waypoint> OR /navigate <x> (y) <z>
   track:
     aliases: [navtrack, trackplayer]
     description: Player tracking command
