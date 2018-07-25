@@ -16,13 +16,15 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         updateDefaults();
+        waypointConfig = new WaypointConfiguration(this);
         new NavigatorListener(this);
         new TrackingListener(this);
         new CoordinateListener(this);
         new NavigateCommand(this);
         new TrackCommand(this);
+        new WaypointCommand(this);
         new NavigationManagementCommand(this);
-        WaypointManager.loadWaypoints(waypointConfig.getWaypointConfig());
+        reload();
         Metrics metrics = new Metrics(this);
         Updater updater = new Updater(this, 56256, this.getFile(), Updater.UpdateType.DEFAULT, true);
     }
