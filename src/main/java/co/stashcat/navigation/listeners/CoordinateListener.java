@@ -39,19 +39,13 @@ public class CoordinateListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void commandListener(PlayerCommandPreprocessEvent e) { //TODO: doesnt work, check where it stops
+    public void commandListener(PlayerCommandPreprocessEvent e) {
         String s = e.getMessage().replace("/", "");
         if (s.split(" ").length >= 3) {
             String cmd = s.substring(0, s.indexOf(" "));
-            Bukkit.getLogger().info("command: " + cmd);
-            Bukkit.getLogger().info("listeningCommands: ");
-            for (String a : listeningCommands)
-                Bukkit.getLogger().info(a);
             if (listeningCommands.contains(cmd)) {
                 String recipient = s.split(" ")[1];
                 String text = s.replace(cmd, "").replaceFirst(" ", "").replace(recipient, "");
-                Bukkit.getLogger().info("recipient: " + recipient);
-                Bukkit.getLogger().info("text: " + text);
                 Matcher m = xyzRegex.matcher(text);
                 Player rp = Bukkit.getPlayer(recipient);
                 if (rp.isOnline()) {
