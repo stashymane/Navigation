@@ -54,6 +54,14 @@ public class WaypointCommand implements CommandExecutor {
                 Main.sendMsg(s, "&cYou are not editing a waypoint.");
             }
             return true;
+        } else if (args.length == 1 && args[0].equalsIgnoreCase("cancel")) {
+            if (!editing.containsKey(s)) {
+                Main.sendMsg(s, "&cYou are not editing a waypoint.");
+                return true;
+            }
+            Main.sendMsg(s, "&aCancelled editing &b%s&a.", editing.get(s));
+            editing.remove(s);
+            return true;
         } else if (args.length == 1 && args[0].equalsIgnoreCase("new")) {
             editing.put(s, new Waypoint(new Location(Bukkit.getWorlds().get(0), 0, 0, 0), 10, true));
             Main.sendMsg(s, "&aCreated new waypoint.");
@@ -164,11 +172,13 @@ public class WaypointCommand implements CommandExecutor {
         Main.sendMsg(s, "-----");
         sendCommandInfo(s, label, "new", "Creates new waypoint");
         sendCommandInfo(s, label, "edit <id>", "Edits specified waypoint");
+        sendCommandInfo(s, label, "review (id)", "Views all waypoint variables");
         sendCommandInfo(s, label, "set <variable> (value)", "Sets defined variable");
         sendCommandInfo(s, label, "set item", "Sets the waypoint item to your currently held item");
         sendCommandInfo(s, label, "set location", "Sets the location to your current");
         sendCommandInfo(s, label, "set location <x> <y> <z>", "Sets the location to the specified coordinates");
         sendCommandInfo(s, label, "save", "Saves your current waypoint");
+        sendCommandInfo(s, label, "cancel", "Stops editing your current waypoint");
         Main.sendMsg(s, "For a list of variables, type &a/%s set", label);
     }
 
