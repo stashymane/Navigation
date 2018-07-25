@@ -43,7 +43,13 @@ public class CoordinateListener implements Listener {
             return;
         String msg = e.getMessage();
         Matcher m = xyzRegex.matcher(msg);
-        List<TextComponent> navigateTo = new ArrayList<>();
+        List<Vector> navigateTo = matchCoords(m);
+        for (Player p : recipients)
+            p.spigot().sendMessage(getCoordText(navigateTo));
+    }
+
+    public List<Vector> matchCoords(Matcher m) {
+        List<Vector> coordList = new ArrayList<>();
         while (m.find()) {
             String coords = m.group(0);
             String separator = m.group(2);
@@ -51,24 +57,51 @@ public class CoordinateListener implements Listener {
             int x = Integer.parseInt(xyz[0]);
             int y = Integer.parseInt(xyz[1]);
             int z = Integer.parseInt(xyz[2]);
-
-            TextComponent s = new TextComponent(String.format("(%d, %d, %d)", x, y, z));
-            s.setColor(ChatColor.GREEN);
-            s.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/navigate %d %d %d", x, y, z)));
-            s.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to navigate").create()));
-            navigateTo.add(s);
+            coordList.add(new Vector(x, y, z));
         }
+        return coordList;
+    }
+
+    public TextComponent getCoordText(List<Vector> l) {
         TextComponent s = new TextComponent("Navigate to");
         boolean addSemicolon = false;
-        for (TextComponent t : navigateTo) {
+        for (Vector v : l) {
             if (addSemicolon)
                 s.addExtra(";");
             s.addExtra(" ");
-            s.addExtra(t);
+            s.addExtra(getCoordText(v.getBlockX(), v.getBlockY(), v.getBlockZ()));
             addSemicolon = true;
         }
         s.addExtra(new TextComponent("."));
-        for (Player p : recipients)
-            p.spigot().sendMessage(s);
+        return s;
+    }
+
+    public TextComponent getCoordText(int x, int y, int z) {
+        TextComponent s = new TextComponent(String.format("(%d, %d, %d)", x, y, z));
+        s.setColor(ChatColor.GREEN);
+        s.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/navigate %d %d %d", x, y, z)));
+        s.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to navigate").create()));
+        return s;
+    }
+
+    public void loadListeningCommands() {
+        List<String> coordsCommands = pl.getConfig().getStringList("coordsCommands");
+        for (String cmd : coordsCommands) {
+            Map<String, String[]> aliases = Bukkit.getCommandAliases();
+            if (aliases.containsKey(cmd)) {
+                listeningCommands.add(cmd);
+                listeningCommands.addAll(Arrays.asList(aliases.get(cmd)));
+            } else {
+                for (int i = 0; i < aliases.size(); i++) {
+                    String key = (String) aliases.keySet().toArray()[i];
+                    for (String alias : aliases.get(key))
+                        if (alias.equalsIgnoreCase(cmd)) {
+                            listeningCommands.add(cmd);
+                            listeningCommands.addAll(Arrays.asList(aliases.get(key)));
+                            break;
+                        }
+                }
+            }
+        }
     }
 }
