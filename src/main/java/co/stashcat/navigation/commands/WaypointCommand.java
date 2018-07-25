@@ -11,7 +11,7 @@ public class WaypointCommand implements CommandExecutor {
         p.getCommand("waypoint").setExecutor(this);
     }
 
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
         return false;
     }
 }

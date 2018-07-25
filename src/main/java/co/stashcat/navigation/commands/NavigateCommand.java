@@ -18,7 +18,7 @@ public class NavigateCommand implements CommandExecutor {
         pl.getCommand("navigate").setExecutor(this);
     }
 
-    public boolean onCommand(CommandSender s, Command cmd, String str, String[] args) {
+    public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
         if (!(s instanceof Player)) {
             Main.sendMsg(s, "&cThis command can only be used by players.");
             return true;
