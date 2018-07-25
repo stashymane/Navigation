@@ -5,6 +5,8 @@ import co.stashcat.navigation.events.WaypointChangeEvent;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
@@ -13,9 +15,9 @@ public class Waypoint {
     int destinationRadius;
     boolean ignoreHeight;
     String id;
-    String name;
-    String desc;
-    ItemStack item;
+    String name = "Waypoint";
+    String desc = "";
+    ItemStack item = new ItemStack(Material.PAPER);
 
     public Waypoint(Location loc, int destinationRadius, boolean ignoreHeight) {
         setLocation(loc);
@@ -33,18 +35,22 @@ public class Waypoint {
         setItem(item);
     }
 
-    public boolean save(Main p) {
-        if (id == null || name == null)
+    public boolean save() {
+        if (id == null)
             return false;
-        ConfigurationSection wp = p.getConfig().getConfigurationSection("waypoints." + id);
-        wp.set("id", id);
-        wp.set("name", name);
-        wp.set("description", desc);
-        wp.set("location", loc);
-        wp.set("destinationRadius", destinationRadius);
-        wp.set("ignoreHeight", ignoreHeight);
-        wp.set("item", item);
+        Configuration c = Main.waypointConfig.getWaypointConfig();
+        save(c, id, "name", name);
+        save(c, id, "description", desc);
+        save(c, id, "location", loc);
+        save(c, id, "destinationRadius", destinationRadius);
+        save(c, id, "ignoreHeight", ignoreHeight);
+        save(c, id, "item", item);
+        Main.waypointConfig.saveWaypointConfig();
         return true;
+    }
+
+    private void save(ConfigurationSection s, String id, String var, Object val) {
+        s.set("waypoints." + id + "." + var, val);
     }
 
     public void setId(String id) throws IllegalArgumentException {
