@@ -20,6 +20,8 @@ public class NavigationManagementCommand implements CommandExecutor {
             return true;
         } else if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             Main.reload();
+            Main.sendMsg(s, "&aSuccessfully reloaded plugin.");
+            return true;
         }
         return false;
     }
