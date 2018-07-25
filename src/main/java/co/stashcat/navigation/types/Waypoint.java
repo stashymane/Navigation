@@ -45,6 +45,7 @@ public class Waypoint {
         save(c, id, "ignoreHeight", ignoreHeight);
         save(c, id, "item", item);
         Main.waypointConfig.saveWaypointConfig();
+        Main.reload();
         return true;
     }
 
