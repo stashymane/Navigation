@@ -33,8 +33,28 @@ public class WaypointCommand implements CommandExecutor {
         } else if (args.length == 1 && args[0].equalsIgnoreCase("set")) {
             displayVariables(s);
             return true;
+        } else if ((args.length == 1 || args.length == 2) && args[0].equalsIgnoreCase("review")) {
+            if (args.length == 2 || editing.containsKey(s)) {
+                Waypoint w;
+                if (args.length == 2) {
+                    w = WaypointManager.getWaypoint(args[1]);
+                    if (w == null) {
+                        Main.sendMsg(s, "&cWaypoint &b%s&c not found.", args[1]);
+                        return true;
+                    }
+                }
+                w = editing.get(s);
+                Main.sendMsg(s, "%s: &a%s", "id", w.getId());
+                Main.sendMsg(s, "%s: &a%s", "name", w.getName());
+                Main.sendMsg(s, "%s: &a%s", "description", w.getDesc());
+                Main.sendMsg(s, "%s: &a%s", "destination radius", w.getDestinationRadius());
+                Main.sendMsg(s, "%s: &a%s", "location", w.getLocation());
+                Main.sendMsg(s, "%s: &a%s", "item", w.getItem());
+            } else {
+                Main.sendMsg(s, "&cYou are not editing a waypoint.");
+            }
+            return true;
         } else if (args.length == 1 && args[0].equalsIgnoreCase("new")) {
-
             editing.put(s, new Waypoint(new Location(Bukkit.getWorlds().get(0), 0, 0, 0), 10, true));
             Main.sendMsg(s, "&aCreated new waypoint.");
             return true;
