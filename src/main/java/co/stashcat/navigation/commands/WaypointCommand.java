@@ -48,12 +48,7 @@ public class WaypointCommand implements CommandExecutor {
                     }
                 }
                 w = editing.get(s);
-                Main.sendMsg(s, "%s: &a%s", "id", w.getId());
-                Main.sendMsg(s, "%s: &a%s", "name", w.getName());
-                Main.sendMsg(s, "%s: &a%s", "description", w.getDesc());
-                Main.sendMsg(s, "%s: &a%s", "destination radius", w.getDestinationRadius());
-                Main.sendMsg(s, "%s: &a%s", "location", w.getLocation());
-                Main.sendMsg(s, "%s: &a%s", "item", w.getItem());
+                sendWaypointInfo(s, w);
             } else {
                 Main.sendMsg(s, "&cYou are not editing a waypoint.");
             }
@@ -254,5 +249,36 @@ public class WaypointCommand implements CommandExecutor {
             s.spigot().sendMessage(t);
         } else
             Main.sendMsg(s, "/%s &a%s&r - %s", label, args, description);
+    }
+
+    private void sendWaypointInfo(CommandSender s, Waypoint w) {
+        sendWaypointInfo(s, "id", w.getId());
+        sendWaypointInfo(s, "name", w.getName());
+        sendWaypointInfo(s, "description", w.getDesc());
+        sendWaypointInfo(s, "destination radius", w.getDestinationRadius());
+        sendWaypointInfo(s, "location", w.getLocation());
+        sendWaypointInfo(s, "item", w.getItem());
+    }
+
+    private void sendWaypointInfo(CommandSender s, String var, Object val) {
+        if (Main.isSpigot()) {
+            String value;
+            if (val == null)
+                value = "NOT SET";
+            else
+                value = val.toString();
+            TextComponent t = new TextComponent(var + ": ");
+            String suggestion = var;
+            if (!var.equalsIgnoreCase("item"))
+                suggestion += " " + value;
+            t.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("/waypoint set %s", suggestion)));
+            t.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to edit").create()));
+            TextComponent tv = new TextComponent(value);
+            tv.setColor(ChatColor.GREEN);
+            t.addExtra(tv);
+            s.spigot().sendMessage(t);
+        } else {
+            Main.sendMsg(s, "%s: &a%s", var, val.toString());
+        }
     }
 }
