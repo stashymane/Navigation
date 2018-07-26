@@ -38,7 +38,7 @@ permissions:
     description: Allows navigating to specific coordinates
     default: true
   navigation.compass:
-    description: Allows using a compass to start navigation
+    description: Allows right-clicking a compass to start navigation or tracking
     default: true
   navigation.edit:
     description: Allows editing navigation waypoints

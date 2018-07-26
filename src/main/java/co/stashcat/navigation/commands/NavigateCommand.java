@@ -34,7 +34,7 @@ public class NavigateCommand implements CommandExecutor {
                 Main.sendMsg(p, "&cWaypoint %s does not exist.", args[0]);
             }
             return true;
-        } else if (args.length == 2 || args.length == 3) {
+        } else if (args.length == 2 || args.length == 3 && s.hasPermission("navigation.coordinates")) {
             int x;
             int y = 0;
             int z;
