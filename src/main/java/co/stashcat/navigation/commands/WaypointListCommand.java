@@ -34,7 +34,7 @@ public class WaypointListCommand implements CommandExecutor {
             for (Waypoint w : waypointList) {
                 TextComponent t = new TextComponent(w.getName());
                 t.setColor(ChatColor.GREEN);
-                t.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(String.format("Click to navigate...")).create()));
+                t.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(String.format("Click to navigate to %s...", w.getId())).create()));
                 t.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/navigate %s", w.getId())));
                 if (addSpace)
                     msg.addExtra(new TextComponent(" "));
@@ -47,7 +47,7 @@ public class WaypointListCommand implements CommandExecutor {
             for (Waypoint w : waypointList) {
                 if (!msg.toString().equals("&a"))
                     msg.append(" ");
-                msg.append(w.getName());
+                msg.append(w.getId());
             }
             Main.sendMsg(s, msg.toString());
         }

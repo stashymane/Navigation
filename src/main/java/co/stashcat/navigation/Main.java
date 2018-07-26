@@ -38,7 +38,9 @@ public class Main extends JavaPlugin {
     }
 
     public static void reload() {
-        WaypointManager.loadWaypoints(waypointConfig.getWaypointConfig());
+        getPlugin(Main.class).reloadConfig();
+        waypointConfig.reloadConfig();
+        WaypointManager.loadWaypoints(waypointConfig.getConfig());
     }
 
     public void onDisable() {

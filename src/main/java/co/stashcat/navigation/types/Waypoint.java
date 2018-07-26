@@ -37,28 +37,28 @@ public class Waypoint {
     public boolean save() {
         if (id == null)
             return false;
-        Configuration c = Main.waypointConfig.getWaypointConfig();
+        Configuration c = Main.waypointConfig.getConfig();
         save(c, id, "name", name);
         save(c, id, "description", desc);
         save(c, id, "location", loc);
         save(c, id, "destinationRadius", destinationRadius);
         save(c, id, "ignoreHeight", ignoreHeight);
         save(c, id, "item", item);
-        Main.waypointConfig.saveWaypointConfig();
+        Main.waypointConfig.saveConfig();
         Main.reload();
         return true;
     }
 
     private void save(Configuration s, String id, String var, Object val) {
-        s.set("waypoints." + id + "." + var, val);
+        s.set(id + "." + var, val);
     }
 
     public boolean delete() {
-        Configuration c = Main.waypointConfig.getWaypointConfig();
+        Configuration c = Main.waypointConfig.getConfig();
         if (id == null)
             return false;
-        c.set("waypoints." + id, null);
-        Main.waypointConfig.saveWaypointConfig();
+        c.set(id, null);
+        Main.waypointConfig.saveConfig();
         Main.reload();
         return true;
     }

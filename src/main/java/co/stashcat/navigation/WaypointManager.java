@@ -8,21 +8,17 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class WaypointManager {
     public static Map<String, Waypoint> waypoints = new HashMap<>();
-    static Configuration currentConfig;
 
     public static void loadWaypoints(Configuration c, boolean clear) {
-        currentConfig = c;
         if (clear) waypoints.clear();
-        if (c.get("waypoints") == null)
-            return;
-        List<String> keys = c.getStringList("waypoints");
+        Set<String> keys = c.getKeys(false);
         for (String k : keys) {
-            ConfigurationSection cs = c.getConfigurationSection("waypoints." + k);
+            ConfigurationSection cs = c.getConfigurationSection(k);
             Location loc = (Location) cs.get("location");
             int destinationRadius = cs.getInt("destinationRadius");
             boolean ignoreHeight = cs.getBoolean("ignoreHeight");
@@ -47,9 +43,5 @@ public class WaypointManager {
 
     public static Collection<Waypoint> getWaypointList() {
         return waypoints.values();
-    }
-
-    public static Configuration getCurrentConfig() {
-        return currentConfig;
     }
 }
