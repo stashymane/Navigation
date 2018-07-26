@@ -30,6 +30,7 @@ public class Main extends JavaPlugin {
         new NavigateCommand(this);
         new TrackCommand(this);
         new WaypointCommand(this);
+        new WaypointListCommand(this);
         new NavigationManagementCommand(this);
         reload();
         Metrics metrics = new Metrics(this);
