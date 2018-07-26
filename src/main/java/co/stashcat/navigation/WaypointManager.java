@@ -1,10 +1,7 @@
 package co.stashcat.navigation;
 
 import co.stashcat.navigation.types.Waypoint;
-import org.bukkit.Location;
 import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,16 +14,8 @@ public class WaypointManager {
     public static void loadWaypoints(Configuration c, boolean clear) {
         if (clear) waypoints.clear();
         Set<String> keys = c.getKeys(false);
-        for (String k : keys) {
-            ConfigurationSection cs = c.getConfigurationSection(k);
-            Location loc = (Location) cs.get("location");
-            int destinationRadius = cs.getInt("destinationRadius");
-            boolean ignoreHeight = cs.getBoolean("ignoreHeight");
-            String name = cs.getString("name");
-            String desc = cs.getString("description");
-            ItemStack item = (ItemStack) cs.get("item");
-            waypoints.put(k, new Waypoint(loc, destinationRadius, ignoreHeight, k, name, desc, item));
-        }
+        for (String k : keys)
+            Waypoint.fromConfig(c, k);
     }
 
     public static void loadWaypoints(Configuration c) {

@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
 public class Waypoint {
@@ -61,6 +62,17 @@ public class Waypoint {
         Main.waypointConfig.saveConfig();
         Main.reload();
         return true;
+    }
+
+    public static Waypoint fromConfig(ConfigurationSection c, String id) {
+        c = c.getConfigurationSection(id);
+        Location loc = (Location) c.get("location");
+        int destinationRadius = c.getInt("destinationRadius");
+        boolean ignoreHeight = c.getBoolean("ignoreHeight");
+        String name = c.getString("name");
+        String desc = c.getString("description");
+        ItemStack item = (ItemStack) c.get("item");
+        return new Waypoint(loc, destinationRadius, ignoreHeight, id, name, desc, item);
     }
 
 
