@@ -34,10 +34,13 @@ public class WaypointListCommand implements CommandExecutor {
             for (Waypoint w : waypointList) {
                 TextComponent t = new TextComponent(w.getName());
                 t.setColor(ChatColor.GREEN);
+                TextComponent tid = new TextComponent(" (id: " + w.getId() + ")");
+                tid.setColor(ChatColor.AQUA);
+                t.addExtra(tid);
                 t.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(String.format("Click to navigate to %s...", w.getId())).create()));
                 t.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/navigate %s", w.getId())));
                 if (addSpace)
-                    msg.addExtra(new TextComponent(" "));
+                    msg.addExtra(new TextComponent(", "));
                 msg.addExtra(t);
                 addSpace = true;
             }
