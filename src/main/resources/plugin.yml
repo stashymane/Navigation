@@ -1,7 +1,7 @@
 name: ${name}
 version: ${version}
 main: ${groupId}.Main
-description: Main via compass in Minecraft
+description: Navigation via compass in Minecraft
 author: StashCat
 
 commands:
