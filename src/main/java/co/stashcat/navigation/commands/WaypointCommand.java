@@ -3,9 +3,13 @@ package co.stashcat.navigation.commands;
 import co.stashcat.navigation.Main;
 import co.stashcat.navigation.WaypointManager;
 import co.stashcat.navigation.types.Waypoint;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -31,7 +35,7 @@ public class WaypointCommand implements CommandExecutor {
             displayHelp(s, label);
             return true;
         } else if (args.length == 1 && args[0].equalsIgnoreCase("set")) {
-            displayVariables(s);
+            displayVariables(s, label);
             return true;
         } else if ((args.length == 1 || args.length == 2) && args[0].equalsIgnoreCase("review")) {
             if (args.length == 2 || editing.containsKey(s)) {
@@ -186,8 +190,9 @@ public class WaypointCommand implements CommandExecutor {
     }
 
     private void displayHelp(CommandSender s, String label) {
+        Main.sendMsg(s, "  -----");
         Main.sendMsg(s, "  &aNavigation waypoint editor");
-        Main.sendMsg(s, "-----");
+        Main.sendMsg(s, "  -----");
         sendCommandInfo(s, label, "new", "Creates new waypoint");
         sendCommandInfo(s, label, "edit <id>", "Edits specified waypoint");
         sendCommandInfo(s, label, "review (id)", "Views all waypoint variables");
@@ -201,28 +206,53 @@ public class WaypointCommand implements CommandExecutor {
         Main.sendMsg(s, "For a list of variables, type &a/%s set", label);
     }
 
-    private void displayVariables(CommandSender s) {
+    private void displayVariables(CommandSender s, String label) {
+        Main.sendMsg(s, "  -----");
         Main.sendMsg(s, "  &aWaypoint variables");
-        Main.sendMsg(s, "-----");
-        sendVarInfo(s, "id", "<id>", "Alphanumeric waypoint ID to be used in commands");
-        sendVarInfo(s, "name", "<name>", "Waypoint name");
-        sendVarInfo(s, "desc", "<description>", "Waypoint description");
-        sendVarInfo(s, "item", "Sets waypoint item to your currently held item");
-        sendVarInfo(s, "location", "Sets waypoint location to your current");
-        sendVarInfo(s, "location", "<x> <y> <z> [world]", "Sets waypoint location to the specified coordinates");
-        sendVarInfo(s, "radius", "<radius>", "Waypoint arrival radius");
-        sendVarInfo(s, "ignoreheight", "<true/false>", "If height is ignored when calculating distance to waypoint");
+        Main.sendMsg(s, "  -----");
+        sendVarInfo(s, label, "id", "<id>", "Alphanumeric waypoint ID to be used in commands");
+        sendVarInfo(s, label, "name", "<name>", "Waypoint name");
+        sendVarInfo(s, label, "desc", "<description>", "Waypoint description");
+        sendVarInfo(s, label, "item", null, "Sets waypoint item to your currently held item");
+        sendVarInfo(s, label, "location", null, "Sets waypoint location to your current");
+        sendVarInfo(s, label, "location", "<x> <y> <z> [world]", "Sets waypoint location to the specified coordinates");
+        sendVarInfo(s, label, "radius", "<radius>", "Waypoint arrival radius");
+        sendVarInfo(s, label, "ignoreheight", "<true/false>", "If height is ignored when calculating distance to waypoint");
     }
 
-    private void sendVarInfo(CommandSender s, String var, String values, String description) {
-        sendVarInfo(s, var + ChatColor.translateAlternateColorCodes('&', String.format(" &b%s&r", values)), description);
+    private void sendVarInfo(CommandSender s, String label, String var, String values, String description) {
+        if (Main.isSpigot()) {
+            TextComponent t = new TextComponent("/" + label + " set ");
+            String combined = var;
+            if (values != null)
+                combined += " " + values;
+            TextComponent vt = new TextComponent(combined);
+            vt.setColor(ChatColor.GREEN);
+            t.addExtra(vt);
+            t.addExtra(" - " + description);
+            t.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("/%s set %s", label, combined)));
+            t.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to edit command").create()));
+            s.spigot().sendMessage(t);
+        } else {
+            if (!values.equals(""))
+                values = " " + values;
+            else
+                values = "";
+            Main.sendMsg(s, "&a%s&b%s&r - %s", var, values, description);
+        }
     }
 
-    private void sendVarInfo(CommandSender s, String var, String description) {
-        Main.sendMsg(s, "&a%s&r - %s", var, description);
-    }
-
-    private void sendCommandInfo(CommandSender s, String command, String args, String description) {
-        Main.sendMsg(s, "/%s &a%s&r - %s", command, args, description);
+    private void sendCommandInfo(CommandSender s, String label, String args, String description) {
+        if (Main.isSpigot()) {
+            TextComponent t = new TextComponent("/" + label + " ");
+            TextComponent at = new TextComponent(args);
+            at.setColor(ChatColor.GREEN);
+            t.addExtra(at);
+            t.addExtra(" - " + description);
+            t.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/" + label + " " + args));
+            t.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to edit command").create()));
+            s.spigot().sendMessage(t);
+        } else
+            Main.sendMsg(s, "/%s &a%s&r - %s", label, args, description);
     }
 }
