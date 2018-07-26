@@ -20,12 +20,12 @@ commands:
     permission: navigation.track
     usage: /track <player>
   waypoint:
-    aliases: [navwaypoint]
+    aliases: [wp, navwaypoint]
     description: Waypoint editing command
     permission: navigation.edit
     usage: /waypoint
   waypoints:
-    aliases: [waypointlist]
+    aliases: [wps, waypointlist]
     description: Lists all available waypoints
     permission: navigation.list
     usage: /waypoints
