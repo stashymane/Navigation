@@ -15,7 +15,7 @@ public class WaypointManager {
         if (clear) waypoints.clear();
         Set<String> keys = c.getKeys(false);
         for (String k : keys)
-            Waypoint.fromConfig(c, k);
+            waypoints.put(k, Waypoint.fromConfig(c, k));
     }
 
     public static void loadWaypoints(Configuration c) {
