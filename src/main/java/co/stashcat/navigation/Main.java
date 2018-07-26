@@ -33,8 +33,10 @@ public class Main extends JavaPlugin {
         new WaypointListCommand(this);
         new NavigationManagementCommand(this);
         reload();
-        Metrics metrics = new Metrics(this);
-        Updater updater = new Updater(this, 56256, this.getFile(), Updater.UpdateType.DEFAULT, true);
+        if (getConfig().getBoolean("allowStats"))
+            new Metrics(this);
+        if (getConfig().getBoolean("autoUpdate"))
+            new Updater(this, 56256, this.getFile(), Updater.UpdateType.DEFAULT, true);
     }
 
     public static void reload() {
@@ -62,6 +64,8 @@ public class Main extends JavaPlugin {
     }
 
     public void updateDefaults() {
+        getConfig().addDefault("allowStats", true);
+        getConfig().addDefault("autoUpdate", true);
         getConfig().addDefault("checkInterval", "1");
         getConfig().addDefault("coordsCommands", new String[]{"tell, w, msg, r"});
     }
