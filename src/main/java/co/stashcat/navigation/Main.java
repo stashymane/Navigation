@@ -4,7 +4,6 @@ import co.stashcat.navigation.commands.*;
 import co.stashcat.navigation.listeners.CoordinateListener;
 import co.stashcat.navigation.listeners.NavigatorListener;
 import co.stashcat.navigation.listeners.TrackingListener;
-import net.gravitydevelopment.updater.Updater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -35,8 +34,6 @@ public class Main extends JavaPlugin {
         reload();
         if (getConfig().getBoolean("allowStats"))
             new Metrics(this);
-        if (getConfig().getBoolean("autoUpdate"))
-            new Updater(this, 56256, this.getFile(), Updater.UpdateType.DEFAULT, true);
     }
 
     public static void reload() {
@@ -66,7 +63,6 @@ public class Main extends JavaPlugin {
     public void updateDefaults() {
         getConfig().set("version", getDescription().getVersion());
         getConfig().addDefault("allowStats", true);
-        getConfig().addDefault("autoUpdate", true);
         getConfig().addDefault("checkInterval", "1");
         getConfig().addDefault("coordsCommands", new String[]{"tell, w, msg, r"});
         getConfig().options().copyDefaults();

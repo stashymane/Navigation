@@ -2,6 +2,5 @@
 lastVersion: ${version}
 # -----
 allowStats: true
-autoUpdate: true
 checkInterval: 1
 coordsCommands: [tell, w, msg, r]
