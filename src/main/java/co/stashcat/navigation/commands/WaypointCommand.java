@@ -258,6 +258,7 @@ public class WaypointCommand implements CommandExecutor {
         sendWaypointInfo(s, "destination radius", w.getDestinationRadius());
         sendWaypointInfo(s, "location", w.getLocation());
         sendWaypointInfo(s, "item", w.getItem());
+        sendWaypointInfo(s, "height ignored", w.isHeightIgnored());
     }
 
     private void sendWaypointInfo(CommandSender s, String var, Object val) {
