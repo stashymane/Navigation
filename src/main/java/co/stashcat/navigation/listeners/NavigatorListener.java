@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.HashMap;
@@ -44,5 +45,11 @@ public class NavigatorListener implements Listener {
         if (!e.isCancelled()) {
             Navigator.updateCompassTarget(Navigator.getNavigator(e.getWaypoint()));
         }
+    }
+
+    @EventHandler
+    public void changeWorld(PlayerChangedWorldEvent e) {
+        if (Navigator.isNavigating(e.getPlayer()))
+            Navigator.updateCompassTarget(e.getPlayer());
     }
 }
