@@ -58,7 +58,7 @@ public class WaypointCommand implements CommandExecutor {
                 Main.sendMsg(s, "&cYou are not editing a waypoint.");
                 return true;
             }
-            Main.sendMsg(s, "&aCancelled editing &b%s&a.", editing.get(s));
+            Main.sendMsg(s, "&aCancelled editing &b%s&a.", editing.get(s).getId());
             editing.remove(s);
             return true;
         } else if ((args.length == 1 || args.length == 2) && args[0].equalsIgnoreCase("delete")) {
