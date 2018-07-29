@@ -27,7 +27,16 @@ public class ActionBarUpdater extends BukkitRunnable {
                 }
                 info = String.format("&a%s&r: %d blocks away%s", w.getName(), (int) ploc.distance(dest), hStr);
             } else {
-                info = String.format("&cWaypoint is in world &b%s&c!", w.getLocation().getWorld().getName());
+                String worldname = w.getLocation().getWorld().getName();
+                if (worldname.equalsIgnoreCase("world"))
+                    worldname = "the overworld";
+                else if (worldname.equalsIgnoreCase("world_nether"))
+                    worldname = "the nether";
+                else if (worldname.equalsIgnoreCase("world_the_end"))
+                    worldname = "the end";
+                else
+                    worldname = "world " + worldname;
+                info = String.format("&cWaypoint is in &b%s&c!", worldname);
             }
             info = ChatColor.translateAlternateColorCodes('&', info);
             ActionBar.sendActionBar(p, info);
