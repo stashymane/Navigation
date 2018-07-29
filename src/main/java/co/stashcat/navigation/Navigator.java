@@ -29,7 +29,7 @@ public class Navigator {
     }
 
     public static void updateCompassTarget(Player p) {
-        if (destinations.containsKey(p))
+        if (isNavigating(p) && p.getWorld().equals(destinations.get(p).getLocation().getWorld()))
             p.setCompassTarget(destinations.get(p).getLocation());
     }
 
