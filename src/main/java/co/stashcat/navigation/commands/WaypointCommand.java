@@ -133,7 +133,7 @@ public class WaypointCommand implements CommandExecutor {
                 ItemStack held = p.getInventory().getItemInMainHand();
                 editing.get(s).setItem(held);
                 value = held.getType().toString();
-            } else if (variable.equalsIgnoreCase("location")) {
+            } else if (args.length == 2 && variable.equalsIgnoreCase("location")) {
                 if (!(s instanceof Player)) {
                     Main.sendMsg(s, "&cShorthand location can only be set by players.");
                     return true;
