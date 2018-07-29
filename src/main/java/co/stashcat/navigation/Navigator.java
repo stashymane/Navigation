@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import javax.naming.NoPermissionException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,5 +77,9 @@ public class Navigator {
 
     public static Waypoint getDestination(Player p) {
         return destinations.get(p);
+    }
+
+    public static Collection<Player> getNavigatingList() {
+        return destinations.keySet();
     }
 }
