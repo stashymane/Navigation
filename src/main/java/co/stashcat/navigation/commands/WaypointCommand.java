@@ -163,8 +163,8 @@ public class WaypointCommand implements CommandExecutor {
                 editing.get(s).setLocation(l);
                 value = String.format("%d, %d, %d in %s", x, y, z, world.getName());
             } else {
-                Main.sendMsg(s, "&cVariable &b%s&c not found.", variable);
-                return true;
+                Main.sendMsg(s, "&cInvalid arguments.", variable);
+                return false;
             }
             Main.sendMsg(s, "&aVariable &b%s&a successfully set to &b%s", variable, value);
             return true;
