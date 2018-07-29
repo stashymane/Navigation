@@ -162,6 +162,14 @@ public class WaypointCommand implements CommandExecutor {
                 Location l = new Location(world, x, y, z);
                 editing.get(s).setLocation(l);
                 value = String.format("%d, %d, %d in %s", x, y, z, world.getName());
+            } else if (args.length == 3 && args[1].equalsIgnoreCase("permissionRequired")) {
+                try {
+                    boolean permissionRequired = value.equalsIgnoreCase("true") || value.equals("1") || value.equalsIgnoreCase("yes") || value.equalsIgnoreCase("y");
+                    editing.get(s).setPermissionRequired(permissionRequired);
+                    value = Boolean.toString(permissionRequired);
+                } catch (IllegalArgumentException e) {
+                    Main.sendMsg(s, "&cIgnoreHeight must be either true or false.");
+                }
             } else {
                 Main.sendMsg(s, "&cInvalid arguments.", variable);
                 return false;
@@ -213,6 +221,7 @@ public class WaypointCommand implements CommandExecutor {
         sendVarInfo(s, label, "location", "<x> <y> <z> [world]", "Sets waypoint location to the specified coordinates");
         sendVarInfo(s, label, "radius", "<radius>", "Waypoint arrival radius");
         sendVarInfo(s, label, "ignoreheight", "<true/false>", "If height is ignored when calculating distance to waypoint");
+        sendVarInfo(s, label, "permissionrequired", "<true/false>", "If the player requires a permission to navigate");
     }
 
     private void sendVarInfo(CommandSender s, String label, String var, String values, String description) {
@@ -259,6 +268,7 @@ public class WaypointCommand implements CommandExecutor {
         sendWaypointInfo(s, "location", w.getLocation());
         sendWaypointInfo(s, "item", w.getItem());
         sendWaypointInfo(s, "ignoreheight", w.isHeightIgnored());
+        sendWaypointInfo(s, "permissionrequired", w.isPermissionRequired());
     }
 
     private void sendWaypointInfo(CommandSender s, String var, Object val) {

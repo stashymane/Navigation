@@ -18,6 +18,7 @@ public class Waypoint {
     String name = "Waypoint";
     String desc = "";
     ItemStack item = new ItemStack(Material.PAPER);
+    boolean permissionRequired = false;
 
     public Waypoint(Location loc, int destinationRadius, boolean ignoreHeight) {
         setLocation(loc);
@@ -25,7 +26,7 @@ public class Waypoint {
         setIgnoreHeight(ignoreHeight);
     }
 
-    public Waypoint(Location loc, int destinationRadius, boolean ignoreHeight, String id, String name, String desc, ItemStack item) {
+    public Waypoint(Location loc, int destinationRadius, boolean ignoreHeight, String id, String name, String desc, ItemStack item, boolean permissionRequired) {
         setId(id);
         setName(name);
         setDescription(desc);
@@ -33,6 +34,7 @@ public class Waypoint {
         setDestinationRadius(destinationRadius);
         setIgnoreHeight(ignoreHeight);
         setItem(item);
+        setPermissionRequired(permissionRequired);
     }
 
     public boolean save() {
@@ -45,6 +47,7 @@ public class Waypoint {
         save(c, id, "destinationRadius", destinationRadius);
         save(c, id, "ignoreHeight", ignoreHeight);
         save(c, id, "item", item);
+        save(c, id, "permissionRequired", permissionRequired);
         Main.waypointConfig.saveConfig();
         Main.reload();
         return true;
@@ -72,7 +75,8 @@ public class Waypoint {
         String name = c.getString("name");
         String desc = c.getString("description");
         ItemStack item = (ItemStack) c.get("item");
-        return new Waypoint(loc, destinationRadius, ignoreHeight, id, name, desc, item);
+        boolean permissionRequired = c.getBoolean("permissionRequired");
+        return new Waypoint(loc, destinationRadius, ignoreHeight, id, name, desc, item, permissionRequired);
     }
 
 
@@ -108,6 +112,10 @@ public class Waypoint {
         this.item = item;
     }
 
+    public void setPermissionRequired(boolean permissionRequired) {
+        this.permissionRequired = permissionRequired;
+    }
+
     public String getId() {
         return id;
     }
@@ -134,5 +142,9 @@ public class Waypoint {
 
     public boolean isHeightIgnored() {
         return ignoreHeight;
+    }
+
+    public boolean isPermissionRequired() {
+        return permissionRequired;
     }
 }
