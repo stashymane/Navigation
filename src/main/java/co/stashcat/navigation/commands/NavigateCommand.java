@@ -10,6 +10,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import javax.naming.NoPermissionException;
+
 public class NavigateCommand implements CommandExecutor {
     Main pl;
 
@@ -27,7 +29,12 @@ public class NavigateCommand implements CommandExecutor {
         if (args.length == 1) {
             Waypoint w = WaypointManager.getWaypoint(args[0]);
             if (w != null) {
-                Navigator.navigate(p, w);
+                try {
+                    Navigator.navigate(p, w);
+                } catch (NoPermissionException e) {
+                    Main.sendMsg(s, "&cPermission required to navigate to %s.", w.getId());
+                    return true;
+                }
                 Main.sendMsg(p, "&aNavigating to %s...", w.getName());
                 Main.sendMsg(p, "Type /%s to stop.", label);
             } else {
@@ -51,7 +58,12 @@ public class NavigateCommand implements CommandExecutor {
                 return true;
             }
             Waypoint w = new Waypoint(new Location(p.getWorld(), x, y, z), 5, args.length != 3);
-            Navigator.navigate(p, w);
+            try {
+                Navigator.navigate(p, w);
+            } catch (NoPermissionException e) {
+                Main.sendMsg(s, "&cPermission required to navigate to %s.", w.getId());
+                return true;
+            }
             Main.sendMsg(p, "&aNavigating to %d, %d, %d...", x, y, z);
             Main.sendMsg(p, "Type /%s to stop.", label);
             return true;
