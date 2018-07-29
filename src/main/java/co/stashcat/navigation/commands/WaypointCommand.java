@@ -140,6 +140,10 @@ public class WaypointCommand implements CommandExecutor {
                 }
                 Player p = (Player) s;
                 Location l = p.getLocation();
+                if (p.getWorld().getName().equalsIgnoreCase("world_nether") || p.getWorld().getName().equalsIgnoreCase("world_the_end")) {
+                    Main.sendMsg(s, "&cCompasses do not work in the nether or the end.");
+                    return true;
+                }
                 editing.get(s).setLocation(l);
                 value = String.format("%d, %d, %d in world %s", l.getBlockX(), l.getBlockY(), l.getBlockZ(), l.getWorld().getName());
             } else if ((args.length == 5 || args.length == 6) && variable.equalsIgnoreCase("location")) {
@@ -157,6 +161,10 @@ public class WaypointCommand implements CommandExecutor {
                     world = Bukkit.getWorld(args[5]);
                 if (world == null) {
                     Main.sendMsg(s, "&cWorld %s could not be found.", args[5]);
+                    return true;
+                }
+                if (world.getName().equalsIgnoreCase("world_nether") || world.getName().equalsIgnoreCase("world_the_end")) {
+                    Main.sendMsg(s, "&cCompasses do not work in the nether or the end.");
                     return true;
                 }
                 Location l = new Location(world, x, y, z);
