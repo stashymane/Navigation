@@ -3,6 +3,7 @@ package co.stashcat.navigation;
 import co.stashcat.navigation.types.Waypoint;
 import org.bukkit.entity.Player;
 
+import javax.naming.NoPermissionException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +12,11 @@ public class Tracker {
 
     public static void track(Player p, Player target) {
         tracking.put(p, target);
-        Navigator.navigate(p, new Waypoint(target.getLocation(), 0, false));
+        try {
+            Navigator.navigate(p, new Waypoint(target.getLocation(), 0, false));
+        } catch (NoPermissionException ignored) {
+            //Impossible
+        }
     }
 
     public static void stopTracking(Player p) {
