@@ -5,6 +5,7 @@ import co.stashcat.navigation.listeners.CoordinateListener;
 import co.stashcat.navigation.listeners.NavigatorListener;
 import co.stashcat.navigation.listeners.TrackingListener;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +32,14 @@ public class Main extends JavaPlugin {
         new WaypointCommand(this);
         new WaypointListCommand(this);
         new NavigationManagementCommand(this);
+        int ci = getConfig().getInt("checkInterval");
+        ActionBar.plugin = this;
+        ActionBar.nmsver = Bukkit.getServer().getClass().getPackage().getName();
+        ActionBar.nmsver = ActionBar.nmsver.substring(ActionBar.nmsver.lastIndexOf(".") + 1);
+        if (ActionBar.nmsver.startsWith("v1_7_")) {
+            ActionBar.useOldMethods = true;
+        }
+        new ActionBarUpdater().runTaskTimerAsynchronously(this, ci, ci);
         reload();
         if (getConfig().getBoolean("allowStats"))
             new Metrics(this);
@@ -61,7 +70,7 @@ public class Main extends JavaPlugin {
     }
 
     public void updateDefaults() {
-        getConfig().set("lastversion", getDescription().getVersion());
+        getConfig().set("lastVersion", getDescription().getVersion());
         getConfig().addDefault("allowStats", true);
         getConfig().addDefault("checkInterval", "5");
         getConfig().addDefault("coordsCommands", new String[]{"tell, w, msg, r"});

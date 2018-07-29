@@ -27,7 +27,7 @@ public class WaypointListCommand implements CommandExecutor {
     public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
         boolean checkWorld = s instanceof Player;
         Collection<Waypoint> allWaypoints = WaypointManager.getWaypointList();
-        Collection<Waypoint> waypointList = new HashSet<Waypoint>();
+        Collection<Waypoint> waypointList = new HashSet<>();
         for (Waypoint w : allWaypoints) {
             if (w.hasPermission(s) && (checkWorld && ((Player) s).getWorld().getName().equalsIgnoreCase(w.getLocation().getWorld().getName())))
                 waypointList.add(w);
