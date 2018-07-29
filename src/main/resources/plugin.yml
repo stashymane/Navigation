@@ -53,8 +53,11 @@ permissions:
     description: Allows the player to receive a compass if they do not have one when navigating.
     default: false
   navigation.list:
-    description: Allows the player to list all available waypoints.
+    description: Allows the player to list waypoints they have access to.
     default: true
+  navigation.list.all:
+    description: Allows the player to list all available waypoints.
+    default: op
   navigation.admin:
     description: Allows the player to manage the plugin.
     default: op

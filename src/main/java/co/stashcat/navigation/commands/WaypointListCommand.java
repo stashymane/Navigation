@@ -27,10 +27,15 @@ public class WaypointListCommand implements CommandExecutor {
     public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
         boolean checkWorld = s instanceof Player;
         Collection<Waypoint> allWaypoints = WaypointManager.getWaypointList();
-        Collection<Waypoint> waypointList = new HashSet<>();
-        for (Waypoint w : allWaypoints) {
-            if (w.hasPermission(s) && (checkWorld && ((Player) s).getWorld().getName().equalsIgnoreCase(w.getLocation().getWorld().getName())))
-                waypointList.add(w);
+        Collection<Waypoint> waypointList;
+        if (s.hasPermission("navigation.list.all") && args.length == 1 && args[0].equalsIgnoreCase("all")) {
+            waypointList = allWaypoints;
+        } else {
+            waypointList = new HashSet<>();
+            for (Waypoint w : allWaypoints) {
+                if (w.hasPermission(s) && (checkWorld && ((Player) s).getWorld().getName().equalsIgnoreCase(w.getLocation().getWorld().getName())))
+                    waypointList.add(w);
+            }
         }
         if (waypointList.isEmpty()) {
             Main.sendMsg(s, "&cNo waypoints registered.");
