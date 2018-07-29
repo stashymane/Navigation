@@ -13,7 +13,9 @@ public class Tracker {
     public static void track(Player p, Player target) {
         tracking.put(p, target);
         try {
-            Navigator.navigate(p, new Waypoint(target.getLocation(), 0, false));
+            Waypoint w = new Waypoint(target.getLocation(), 0, false);
+            w.setName(target.getDisplayName());
+            Navigator.navigate(p, w);
         } catch (NoPermissionException ignored) {
             //Impossible
         }
