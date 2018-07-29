@@ -269,10 +269,7 @@ public class WaypointCommand implements CommandExecutor {
             else
                 value = val.toString();
             TextComponent t = new TextComponent(var + ": ");
-            String suggestion = var;
-            if (!var.equalsIgnoreCase("item"))
-                suggestion += " " + value;
-            t.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("/waypoint set %s", suggestion)));
+            t.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("/waypoint set %s", var)));
             t.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to edit").create()));
             TextComponent tv = new TextComponent(value);
             tv.setColor(ChatColor.GREEN);
