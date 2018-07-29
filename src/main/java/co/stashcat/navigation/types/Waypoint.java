@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
@@ -79,6 +80,9 @@ public class Waypoint {
         return new Waypoint(loc, destinationRadius, ignoreHeight, id, name, desc, item, permissionRequired);
     }
 
+    public boolean hasPermission(CommandSender s) {
+        return !permissionRequired || s.hasPermission("navigation.waypoint" + id) || s.hasPermission("navigation.waypoint.*");
+    }
 
     public void setId(String id) throws IllegalArgumentException {
         if (StringUtils.isAlphanumeric(id))

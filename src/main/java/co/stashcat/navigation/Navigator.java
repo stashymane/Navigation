@@ -13,7 +13,7 @@ public class Navigator {
     static Map<Player, Waypoint> destinations = new HashMap<>();
 
     public static void navigate(Player p, Waypoint w) throws NoPermissionException {
-        if (!w.isPermissionRequired() || p.hasPermission("navigation.waypoint." + w.getId()) || p.hasPermission("navigation.waypoint.*")) {
+        if (w.hasPermission(p)) {
             saveCompassState(p);
             destinations.put(p, w);
             p.setCompassTarget(w.getLocation());
