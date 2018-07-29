@@ -58,3 +58,6 @@ permissions:
   navigation.admin:
     description: Allows the player to manage the plugin.
     default: op
+  navigation.navigate.*:
+    description: Allows navigating to any waypoint that requires permission.
+    default: op
