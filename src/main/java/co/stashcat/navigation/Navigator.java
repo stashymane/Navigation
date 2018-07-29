@@ -4,6 +4,7 @@ import co.stashcat.navigation.types.Waypoint;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import javax.naming.NoPermissionException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,10 +12,14 @@ public class Navigator {
     static Map<Player, Location> compassState = new HashMap<>();
     static Map<Player, Waypoint> destinations = new HashMap<>();
 
-    public static void navigate(Player p, Waypoint w) {
-        saveCompassState(p);
-        destinations.put(p, w);
-        p.setCompassTarget(w.getLocation());
+    public static void navigate(Player p, Waypoint w) throws NoPermissionException {
+        if (!w.isPermissionRequired() || p.hasPermission("navigation.waypoint." + w.getId())) {
+            saveCompassState(p);
+            destinations.put(p, w);
+            p.setCompassTarget(w.getLocation());
+        } else {
+            throw new NoPermissionException(String.format("Permission is required to navigate to %s", w.getId()));
+        }
     }
 
     public static void stopNavigation(Player p) {
