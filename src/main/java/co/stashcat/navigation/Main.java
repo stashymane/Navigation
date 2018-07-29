@@ -32,14 +32,7 @@ public class Main extends JavaPlugin {
         new WaypointCommand(this);
         new WaypointListCommand(this);
         new NavigationManagementCommand(this);
-        int ci = getConfig().getInt("checkInterval");
-        ActionBar.plugin = this;
-        ActionBar.nmsver = Bukkit.getServer().getClass().getPackage().getName();
-        ActionBar.nmsver = ActionBar.nmsver.substring(ActionBar.nmsver.lastIndexOf(".") + 1);
-        if (ActionBar.nmsver.startsWith("v1_7_")) {
-            ActionBar.useOldMethods = true;
-        }
-        new ActionBarUpdater().runTaskTimerAsynchronously(this, ci, ci);
+        registerActionBar();
         reload();
         if (getConfig().getBoolean("allowStats"))
             new Metrics(this);
@@ -74,7 +67,21 @@ public class Main extends JavaPlugin {
         getConfig().addDefault("allowStats", true);
         getConfig().addDefault("checkInterval", "5");
         getConfig().addDefault("coordsCommands", new String[]{"tell, w, msg, r"});
+        getConfig().addDefault("showActionBar", true);
         getConfig().options().copyDefaults();
         saveConfig();
+    }
+
+    private void registerActionBar() {
+        if (!getConfig().getBoolean("showActionBar"))
+            return;
+        int ci = getConfig().getInt("checkInterval");
+        ActionBar.plugin = this;
+        ActionBar.nmsver = Bukkit.getServer().getClass().getPackage().getName();
+        ActionBar.nmsver = ActionBar.nmsver.substring(ActionBar.nmsver.lastIndexOf(".") + 1);
+        if (ActionBar.nmsver.startsWith("v1_7_")) {
+            ActionBar.useOldMethods = true;
+        }
+        new ActionBarUpdater().runTaskTimerAsynchronously(this, ci, ci);
     }
 }

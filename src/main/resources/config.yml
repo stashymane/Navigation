@@ -4,3 +4,4 @@ lastVersion: ${version}
 allowStats: true
 checkInterval: 5
 coordsCommands: [tell, w, msg, r]
+showActionBar: true
