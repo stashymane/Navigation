@@ -34,6 +34,8 @@ public class Navigator {
     }
 
     public static boolean hasReachedDestination(Location player, Waypoint dest) {
+        if (!player.getWorld().equals(dest.getLocation().getWorld()))
+            return false;
         Location temp = dest.getLocation();
         if (dest.isHeightIgnored()) {
             player.setY(0);
