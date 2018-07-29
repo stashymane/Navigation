@@ -11,8 +11,10 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 public class WaypointListCommand implements CommandExecutor {
     Main pl;
@@ -23,7 +25,13 @@ public class WaypointListCommand implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
-        Collection<Waypoint> waypointList = WaypointManager.getWaypointList();
+        boolean checkWorld = s instanceof Player;
+        Collection<Waypoint> allWaypoints = WaypointManager.getWaypointList();
+        Collection<Waypoint> waypointList = new HashSet<Waypoint>();
+        for (Waypoint w : allWaypoints) {
+            if (w.hasPermission(s) && (checkWorld && ((Player) s).getWorld().getName().equalsIgnoreCase(w.getLocation().getWorld().getName())))
+                waypointList.add(w);
+        }
         if (waypointList.isEmpty()) {
             Main.sendMsg(s, "&cNo waypoints registered.");
             return true;
