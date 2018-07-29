@@ -34,10 +34,10 @@ public class WaypointCommand implements CommandExecutor {
         if (args.length == 0) {
             displayHelp(s, label);
             return true;
-        } else if (args.length == 1 && args[0].equalsIgnoreCase("set")) {
+        } else if (args.length == 1 && (args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("s"))) {
             displayVariables(s, label);
             return true;
-        } else if ((args.length == 1 || args.length == 2) && args[0].equalsIgnoreCase("review")) {
+        } else if ((args.length == 1 || args.length == 2) && (args[0].equalsIgnoreCase("review") || args[0].equalsIgnoreCase("r"))) {
             if (args.length == 2 || editing.containsKey(s)) {
                 Waypoint w;
                 if (args.length == 2) {
@@ -53,7 +53,7 @@ public class WaypointCommand implements CommandExecutor {
                 Main.sendMsg(s, "&cYou are not editing a waypoint.");
             }
             return true;
-        } else if (args.length == 1 && args[0].equalsIgnoreCase("cancel")) {
+        } else if (args.length == 1 && (args[0].equalsIgnoreCase("cancel") || args[0].equalsIgnoreCase("c"))) {
             if (!editing.containsKey(s)) {
                 Main.sendMsg(s, "&cYou are not editing a waypoint.");
                 return true;
@@ -61,7 +61,7 @@ public class WaypointCommand implements CommandExecutor {
             Main.sendMsg(s, "&aCancelled editing &b%s&a.", editing.get(s).getId());
             editing.remove(s);
             return true;
-        } else if ((args.length == 1 || args.length == 2) && args[0].equalsIgnoreCase("delete")) {
+        } else if ((args.length == 1 || args.length == 2) && (args[0].equalsIgnoreCase("delete") || args[0].equalsIgnoreCase("d"))) {
             if (args.length == 1 && !editing.containsKey(s)) {
                 Main.sendMsg(s, "&cYou are not editing a waypoint.");
                 return true;
@@ -79,11 +79,11 @@ public class WaypointCommand implements CommandExecutor {
             w.delete();
             Main.sendMsg(s, "&aWaypoint successfully deleted.");
             return true;
-        } else if (args.length == 1 && args[0].equalsIgnoreCase("new")) {
+        } else if (args.length == 1 && (args[0].equalsIgnoreCase("new") || args[0].equalsIgnoreCase("n"))) {
             editing.put(s, new Waypoint(new Location(Bukkit.getWorlds().get(0), 0, 0, 0), 10, true));
             Main.sendMsg(s, "&aCreated new waypoint.");
             return true;
-        } else if (args.length == 2 && args[0].equalsIgnoreCase("edit")) {
+        } else if (args.length == 2 && (args[0].equalsIgnoreCase("edit") || args[0].equalsIgnoreCase("e"))) {
             Waypoint w = WaypointManager.getWaypoint(args[1]);
             if (w != null) {
                 editing.put(s, w);
@@ -91,12 +91,26 @@ public class WaypointCommand implements CommandExecutor {
             } else
                 Main.sendMsg(s, "&cWaypoint %s not found.", args[1]);
             return true;
-        } else if (args.length >= 2 && args[0].equalsIgnoreCase("set")) {
+        } else if (args.length >= 2 && (args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("s"))) {
             if (!editing.containsKey(s)) {
                 Main.sendMsg(s, "&cYou are not editing a waypoint.");
                 return true;
             }
             String variable = args[1];
+            if (variable.equalsIgnoreCase("n"))
+                variable = "name";
+            else if (variable.equalsIgnoreCase("d"))
+                variable = "desc";
+            else if (variable.equalsIgnoreCase("r"))
+                variable = "radius";
+            else if (variable.equalsIgnoreCase("ih"))
+                variable = "ignoreheight";
+            else if (variable.equalsIgnoreCase("i"))
+                variable = "item";
+            else if (variable.equalsIgnoreCase("l"))
+                variable = "location";
+            else if (variable.equalsIgnoreCase("p"))
+                variable = "permissionrequired";
             String value = StringUtils.join(args, " ").replace(args[0] + " " + args[1] + " ", "");
             if (args.length == 3 && variable.equalsIgnoreCase("id")) {
                 try {
@@ -170,7 +184,7 @@ public class WaypointCommand implements CommandExecutor {
                 Location l = new Location(world, x, y, z);
                 editing.get(s).setLocation(l);
                 value = String.format("%d, %d, %d in %s", x, y, z, world.getName());
-            } else if (args.length == 3 && args[1].equalsIgnoreCase("permissionRequired")) {
+            } else if (args.length == 3 && variable.equalsIgnoreCase("permissionRequired")) {
                 try {
                     boolean permissionRequired = value.equalsIgnoreCase("true") || value.equals("1") || value.equalsIgnoreCase("yes") || value.equalsIgnoreCase("y");
                     editing.get(s).setPermissionRequired(permissionRequired);
