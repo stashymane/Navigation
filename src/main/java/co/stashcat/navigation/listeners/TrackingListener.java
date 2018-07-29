@@ -24,7 +24,7 @@ public class TrackingListener implements Listener {
 
     @EventHandler
     public void trackPlayer(PlayerMoveEvent e) {
-        if (Tracker.isBeingTracked(e.getPlayer()) && (!lastCheck.containsKey(e.getPlayer()) || System.currentTimeMillis() - lastCheck.get(e.getPlayer()) > pl.getConfig().getDouble("checkInterval") * 1000)) {
+        if (Tracker.isBeingTracked(e.getPlayer()) && (!lastCheck.containsKey(e.getPlayer()) || System.currentTimeMillis() - lastCheck.get(e.getPlayer()) > pl.getConfig().getDouble("checkInterval") * 50)) { // 1000ms / 20ticks = 50
             Player p = Tracker.getTracker(e.getPlayer());
             Navigator.getDestination(p).setLocation(e.getPlayer().getLocation());
             lastCheck.put(p, System.currentTimeMillis());

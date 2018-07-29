@@ -27,7 +27,7 @@ public class NavigatorListener implements Listener {
 
     @EventHandler
     public void destinationListener(PlayerMoveEvent e) {
-        if (Navigator.isNavigating(e.getPlayer()) && !Tracker.isTracking(e.getPlayer()) && (!lastCheck.containsKey(e.getPlayer()) || System.currentTimeMillis() - lastCheck.get(e.getPlayer()) > pl.getConfig().getDouble("checkInterval") * 1000)) {
+        if (Navigator.isNavigating(e.getPlayer()) && !Tracker.isTracking(e.getPlayer()) && (!lastCheck.containsKey(e.getPlayer()) || System.currentTimeMillis() - lastCheck.get(e.getPlayer()) > pl.getConfig().getDouble("checkInterval") * 50)) {
             Player p = e.getPlayer();
             Location ploc = p.getLocation();
             Waypoint w = Navigator.getDestination(p);

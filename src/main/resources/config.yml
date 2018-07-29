@@ -2,5 +2,5 @@
 lastVersion: ${version}
 # -----
 allowStats: true
-checkInterval: 1
+checkInterval: 5
 coordsCommands: [tell, w, msg, r]

@@ -63,7 +63,7 @@ public class Main extends JavaPlugin {
     public void updateDefaults() {
         getConfig().set("lastversion", getDescription().getVersion());
         getConfig().addDefault("allowStats", true);
-        getConfig().addDefault("checkInterval", "1");
+        getConfig().addDefault("checkInterval", "5");
         getConfig().addDefault("coordsCommands", new String[]{"tell, w, msg, r"});
         getConfig().options().copyDefaults();
         saveConfig();
