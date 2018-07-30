@@ -123,7 +123,7 @@ public class NavigateCommand implements CommandExecutor {
                 StringBuilder msg = new StringBuilder("&a");
                 for (Waypoint w : waypointList) {
                     if (!msg.toString().equals("&a"))
-                        msg.append(" ");
+                        msg.append(", ");
                     msg.append(w.getId());
                 }
                 Main.sendMsg(s, msg.toString());
