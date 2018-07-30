@@ -96,7 +96,7 @@ public class NavigateCommand implements CommandExecutor {
                 return true;
             }
             if (Main.isSpigot()) {
-                TextComponent msg = new TextComponent("");
+                TextComponent msg = new TextComponent("Waypoints: ");
                 boolean addSpace = false;
                 for (Waypoint w : waypointList) {
                     TextComponent t = new TextComponent(w.getId());
@@ -120,11 +120,12 @@ public class NavigateCommand implements CommandExecutor {
                 }
                 s.spigot().sendMessage(msg);
             } else {
-                StringBuilder msg = new StringBuilder("&a");
-                for (Waypoint w : waypointList) {
-                    if (!msg.toString().equals("&a"))
+                StringBuilder msg = new StringBuilder("Waypoints: &a");
+                Waypoint[] wps = (Waypoint[]) waypointList.toArray();
+                for (int i = 0; i < wps.length; i++) {
+                    if (i != 0)
                         msg.append(", ");
-                    msg.append(w.getId());
+                    msg.append(wps[i].getId());
                 }
                 Main.sendMsg(s, msg.toString());
             }
