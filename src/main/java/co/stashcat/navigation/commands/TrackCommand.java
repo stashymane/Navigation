@@ -31,8 +31,9 @@ public class TrackCommand implements CommandExecutor {
                 return true;
             }
         } else if (args.length == 0 && Tracker.isTracking(p)) {
-            Main.sendMsg(p, "&aStopped tracking &2%s&a.", Tracker.getTracking(p));
+            Main.sendMsg(p, "&aStopped tracking &2%s&a.", Tracker.getTracking(p).getDisplayName());
             Tracker.stopTracking(p);
+            return true;
         }
         Main.sendMsg(s, "&cInvalid arguments.");
         return false;
