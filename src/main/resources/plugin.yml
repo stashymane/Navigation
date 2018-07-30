@@ -24,11 +24,6 @@ commands:
     description: Waypoint editing command
     permission: navigation.edit
     usage: /waypoint
-  waypoints:
-    aliases: [wps, waypointlist]
-    description: Lists all available waypoints
-    permission: navigation.list
-    usage: /waypoints
 
 permissions:
   navigation:
@@ -52,9 +47,6 @@ permissions:
   navigation.receivecompass:
     description: Allows the player to receive a compass if they do not have one when navigating.
     default: false
-  navigation.list:
-    description: Allows the player to list waypoints they have access to.
-    default: true
   navigation.list.all:
     description: Allows the player to list all available waypoints.
     default: op

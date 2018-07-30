@@ -1,6 +1,9 @@
 package co.stashcat.navigation;
 
-import co.stashcat.navigation.commands.*;
+import co.stashcat.navigation.commands.NavigateCommand;
+import co.stashcat.navigation.commands.NavigationManagementCommand;
+import co.stashcat.navigation.commands.TrackCommand;
+import co.stashcat.navigation.commands.WaypointCommand;
 import co.stashcat.navigation.listeners.CoordinateListener;
 import co.stashcat.navigation.listeners.NavigatorListener;
 import co.stashcat.navigation.listeners.TrackingListener;
@@ -30,7 +33,6 @@ public class Main extends JavaPlugin {
         new NavigateCommand(this);
         new TrackCommand(this);
         new WaypointCommand(this);
-        new WaypointListCommand(this);
         new NavigationManagementCommand(this);
         registerActionBar();
         reload();
