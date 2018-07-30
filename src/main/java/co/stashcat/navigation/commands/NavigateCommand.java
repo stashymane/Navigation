@@ -18,6 +18,7 @@ public class NavigateCommand implements CommandExecutor {
     public NavigateCommand(Main pl) {
         this.pl = pl;
         pl.getCommand("navigate").setExecutor(this);
+        pl.getCommand("navigate").setTabCompleter(new NavigateTabCompleter());
     }
 
     public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
