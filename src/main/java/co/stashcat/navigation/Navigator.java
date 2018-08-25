@@ -1,19 +1,18 @@
 package co.stashcat.navigation;
 
+import co.stashcat.navigation.menus.Prefabs;
 import co.stashcat.navigation.types.Waypoint;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import javax.naming.NoPermissionException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Navigator {
     static Map<Player, Location> compassState = new HashMap<>();
     static Map<Player, Waypoint> destinations = new HashMap<>();
+    static List<Player> lentCompass = new ArrayList<>();
     public static boolean compassRequired = true;
 
     public static void navigate(Player p, Waypoint w) throws NoPermissionException {
@@ -29,6 +28,7 @@ public class Navigator {
     }
 
     public static void stopNavigation(Player p) {
+        returnCompass(p);
         destinations.remove(p);
         restoreCompassState(p);
     }
@@ -82,17 +82,30 @@ public class Navigator {
         }
     }
 
-    public static boolean checkCompass(Player p) {
-        if (p.hasPermission("navigation.receivecompass") && !p.getInventory().contains(Material.COMPASS))
-            p.getInventory().addItem(new ItemStack(Material.COMPASS));
-        return compassRequired && p.getInventory().contains(Material.COMPASS);
-    }
-
     public static Waypoint getDestination(Player p) {
         return destinations.get(p);
     }
 
     public static Collection<Player> getNavigatingList() {
         return destinations.keySet();
+    }
+
+    public static boolean checkCompass(Player p) {
+        if (p.hasPermission("navigation.receivecompass") && p.getInventory().firstEmpty() != -1 && !p.getInventory().contains(Material.COMPASS)) {
+            p.getInventory().addItem(Prefabs.getGPS());
+            lentCompass.add(p);
+        }
+        return compassRequired && p.getInventory().contains(Material.COMPASS);
+    }
+
+    public static void returnCompass(Player p) {
+        if (isCompassLent(p)) {
+            p.getInventory().remove(Prefabs.getGPS());
+            lentCompass.remove(p);
+        }
+    }
+
+    public static boolean isCompassLent(Player p) {
+        return lentCompass.contains(p);
     }
 }
