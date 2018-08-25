@@ -22,6 +22,16 @@ public class NavigateTabCompleter implements TabCompleter {
                     c.add(w.getId());
             }
         }
+        String lastArg = args[args.length - 1];
+        if (args.length > 0 && !lastArg.equals("")) {
+            for (int i = 0; i < c.size(); i++) {
+                String str = c.get(i);
+                if (!str.startsWith(lastArg)) {
+                    c.remove(i);
+                    i--;
+                }
+            }
+        }
         return c;
     }
 }
