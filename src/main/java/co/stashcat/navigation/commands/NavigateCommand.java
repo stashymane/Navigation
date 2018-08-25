@@ -42,7 +42,7 @@ public class NavigateCommand implements CommandExecutor {
                 try {
                     Navigator.navigate(p, w);
                 } catch (NoPermissionException e) {
-                    Main.sendMsg(s, "&cPermission required to navigate to %s.", w.getId());
+                    Main.sendMsg(s, e.getMessage());
                     return true;
                 }
                 Main.sendMsg(p, "&aNavigating to %s...", w.getName());
