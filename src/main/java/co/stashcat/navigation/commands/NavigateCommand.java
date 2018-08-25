@@ -13,6 +13,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 
 import javax.naming.NoPermissionException;
@@ -24,8 +25,9 @@ public class NavigateCommand implements CommandExecutor {
 
     public NavigateCommand(Main pl) {
         this.pl = pl;
-        pl.getCommand("navigate").setExecutor(this);
-        pl.getCommand("navigate").setTabCompleter(new NavigateTabCompleter());
+        PluginCommand cmd = pl.getCommand("navigate");
+        cmd.setExecutor(this);
+        cmd.setTabCompleter(new NavigateTabCompleter());
     }
 
     public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
