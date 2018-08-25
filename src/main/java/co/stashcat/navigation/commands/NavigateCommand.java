@@ -42,7 +42,7 @@ public class NavigateCommand implements CommandExecutor {
                 try {
                     Navigator.navigate(p, w);
                 } catch (NoPermissionException e) {
-                    Main.sendMsg(s, e.getMessage());
+                    Main.sendMsg(s, ChatColor.RED + e.getMessage());
                     return true;
                 }
                 Main.sendMsg(p, "&aNavigating to %s...", w.getName());
