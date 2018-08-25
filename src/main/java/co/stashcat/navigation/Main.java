@@ -27,6 +27,7 @@ public class Main extends JavaPlugin {
         saveDefaultConfig();
         updateDefaults();
         waypointConfig = new WaypointConfiguration(this);
+        Navigator.compassRequired = getConfig().getBoolean("compassRequired");
         new NavigatorListener(this);
         new TrackingListener(this);
         new CoordinateListener(this);
@@ -70,6 +71,7 @@ public class Main extends JavaPlugin {
         getConfig().addDefault("checkInterval", "5");
         getConfig().addDefault("coordsCommands", new String[]{"tell, w, msg, r"});
         getConfig().addDefault("showActionBar", true);
+        getConfig().addDefault("compassRequired", true);
         getConfig().options().copyDefaults();
         saveConfig();
     }

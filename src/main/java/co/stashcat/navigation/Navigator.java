@@ -2,7 +2,9 @@ package co.stashcat.navigation;
 
 import co.stashcat.navigation.types.Waypoint;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import javax.naming.NoPermissionException;
 import java.util.Collection;
@@ -12,9 +14,12 @@ import java.util.Map;
 public class Navigator {
     static Map<Player, Location> compassState = new HashMap<>();
     static Map<Player, Waypoint> destinations = new HashMap<>();
+    public static boolean compassRequired = true;
 
     public static void navigate(Player p, Waypoint w) throws NoPermissionException {
         if (w.hasPermission(p)) {
+            if (!checkCompass(p))
+                throw new NoPermissionException("A compass is required to navigate.");
             saveCompassState(p);
             destinations.put(p, w);
             p.setCompassTarget(w.getLocation());
@@ -75,6 +80,12 @@ public class Navigator {
         for (Player p : compassState.keySet()) {
             restoreCompassState(p);
         }
+    }
+
+    public static boolean checkCompass(Player p) {
+        if (p.hasPermission("navigation.receivecompass") && !p.getInventory().contains(Material.COMPASS))
+            p.getInventory().addItem(new ItemStack(Material.COMPASS));
+        return compassRequired && p.getInventory().contains(Material.COMPASS);
     }
 
     public static Waypoint getDestination(Player p) {

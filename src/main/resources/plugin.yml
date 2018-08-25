@@ -46,7 +46,7 @@ permissions:
     default: true
   navigation.receivecompass:
     description: Allows the player to receive a compass if they do not have one when navigating.
-    default: false
+    default: op
   navigation.list.all:
     description: Allows the player to list all available waypoints.
     default: op
