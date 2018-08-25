@@ -4,6 +4,7 @@ import co.stashcat.navigation.commands.NavigateCommand;
 import co.stashcat.navigation.commands.NavigationManagementCommand;
 import co.stashcat.navigation.commands.TrackCommand;
 import co.stashcat.navigation.commands.WaypointCommand;
+import co.stashcat.navigation.listeners.CompassListener;
 import co.stashcat.navigation.listeners.CoordinateListener;
 import co.stashcat.navigation.listeners.NavigatorListener;
 import co.stashcat.navigation.listeners.TrackingListener;
@@ -31,6 +32,7 @@ public class Main extends JavaPlugin {
         new NavigatorListener(this);
         new TrackingListener(this);
         new CoordinateListener(this);
+        new CompassListener(this);
         new NavigateCommand(this);
         new TrackCommand(this);
         new WaypointCommand(this);
