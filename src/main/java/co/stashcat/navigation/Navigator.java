@@ -28,7 +28,6 @@ public class Navigator {
     }
 
     public static void stopNavigation(Player p) {
-        returnCompass(p);
         destinations.remove(p);
         restoreCompassState(p);
     }
@@ -73,6 +72,7 @@ public class Navigator {
         if (compassState.containsKey(p)) {
             p.setCompassTarget(compassState.get(p));
             compassState.remove(p);
+            returnCompass(p);
         }
     }
 

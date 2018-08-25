@@ -36,6 +36,5 @@ public class CompassListener implements Listener {
                 Main.sendMsg(e.getPlayer(), "&aNavigation stopped.");
             Tracker.stopTracking(e.getPlayer());
         }
-
     }
 }
