@@ -25,7 +25,11 @@ public class ActionBarUpdater extends BukkitRunnable {
                     else if (hDiff < 0)
                         hStr = ", " + -hDiff + " blocks below";
                 }
-                info = String.format("&a%s&r is %d blocks away%s", w.getName(), (int) ploc.distance(dest), hStr);
+                Location pHor = ploc;
+                pHor.setY(0);
+                Location dHor = dest;
+                dHor.setY(0);
+                info = String.format("&a%s&r is %d blocks away%s", w.getName(), (int) pHor.distance(dHor), hStr);
             } else {
                 String worldname = w.getLocation().getWorld().getName();
                 if (worldname.equalsIgnoreCase("world"))
