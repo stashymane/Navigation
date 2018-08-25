@@ -15,6 +15,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,7 +28,9 @@ public class WaypointCommand implements CommandExecutor {
 
     public WaypointCommand(Main p) {
         pl = p;
-        p.getCommand("waypoint").setExecutor(this);
+        PluginCommand cmd = p.getCommand("waypoint");
+        cmd.setExecutor(this);
+        cmd.setTabCompleter(new WaypointTabCompleter());
     }
 
     public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
