@@ -1,6 +1,6 @@
 name: ${name}
 version: ${version}
-main: ${groupId}.Main
+main: ${groupId}.${artifactId}.Main
 description: Navigation via compass in Minecraft
 author: StashCat
 
